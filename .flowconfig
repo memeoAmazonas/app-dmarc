@@ -1,0 +1,17 @@
+[ignore]
+.*/__tests__/.*
+.*/config/.*
+.*/node_modules/.*
+.*/dist/.*
+.*/src/assets/.*
+
+[include]
+./src/*.jsx
+
+[libs]
+
+[lints]
+
+[options]
+
+[strict]

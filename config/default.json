@@ -1,0 +1,36 @@
+{
+  "env": "default",
+  "host": "0.0.0.0",
+  "port": "8080",
+  "publicPath": "/",
+  "assetPath": "assets",
+  "jsSourcePath": "src",
+  "optimization": {
+    "analyzeMode": false,
+    "analyze": {
+      "port": 8888
+    }
+  },
+  "browserSync": {
+    "active": true,
+    "port": 3002
+  },
+  "html": [
+    {
+			"name": "DMARC Guardian",
+      "title": "DMARC Guardian",
+      "template": "_default.html",
+      "filename": "index.html"
+    }
+  ],
+  "app": {
+    "description": "DMARC Guardian Dashboard",
+    "api": "https://gybj5rwzd7.execute-api.us-east-1.amazonaws.com/Test",
+    "status": {
+      "pass": ["pass", "true"],
+      "neutral": ["neutral", "none", "softfail"],
+      "fail": ["fail", "policy", "temperror", "permerror", "false"]
+    }, 
+    "defaultDisplay": 14
+  }
+}
