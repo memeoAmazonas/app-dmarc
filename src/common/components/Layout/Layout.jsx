@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Navigation from 'common/components/Navigation';
 import { Header } from 'common/components/Header';
 import { AppDialogs } from 'common/components/Dialogs';
+import { ExpireSession } from 'common/components/Utilities';
 
 const LayoutWrapper = styled.div`
   background-color: ${(props) => props.theme.colors.grey1};
@@ -23,6 +24,7 @@ class Layout extends React.PureComponent {
     super(props)
     this.state = {
       menuOpen: false,
+      expireSession: true,
     }
     this._menuToggle = this.menuToggle.bind(this);
   }
@@ -33,9 +35,11 @@ class Layout extends React.PureComponent {
 
   render() {
     const { children } = this.props;
-    const { menuOpen } = this.state;
+    const { menuOpen, expireSession } = this.state;
     return (
       <LayoutWrapper>
+        {/* TODO validate user type and remove session expiration */}
+        {expireSession && <ExpireSession /> }
         <Navigation open={menuOpen} onMenuClick={this._menuToggle} />
         <Header onMenuClick={this._menuToggle} />
         <MainContent>

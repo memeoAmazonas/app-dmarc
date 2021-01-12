@@ -8,6 +8,7 @@
 npm-debug.log
 .eslintcache
 /.env
+/yarn.lock
 
 #amplify
 amplify/\#current-cloud-backend

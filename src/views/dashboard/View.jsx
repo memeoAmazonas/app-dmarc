@@ -104,5 +104,3 @@ const mapDispatchToProps = {
 }
 const mapStateToProps = (state) => dashboardViewSelector(state)
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(withUserInfo(Dashboard)));
-
-

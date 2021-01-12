@@ -27,16 +27,16 @@ class Root extends React.PureComponent {
 
     if (authState === SIGNED_IN_STATE) {
       return (
-          <ThemeProvider theme={theme}>
-            <Provider store={store}>
-              <I18NProvider>
-                {this.content}
-              </I18NProvider>
-            </Provider>
-          </ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <Provider store={store}>
+            <I18NProvider>
+              {this.content}
+            </I18NProvider>
+          </Provider>
+        </ThemeProvider>
       )
     }
-    return (null)
+    return null
   }
 }
 

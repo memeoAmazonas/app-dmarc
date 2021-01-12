@@ -5,3 +5,5 @@ export const STATUS = {
 }
 
 export const DEFAULT_DISPLAY = __CONFIG__.defaultDisplay;
+
+export const SESSION_TIMEOUT = 1800000;
