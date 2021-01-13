@@ -19,9 +19,11 @@ if (window.__INITIAL_STATE__) {
     initialState[key] = fromJS(initialState[key])
   })
 }
+if (!sessionStorage.getItem('init')) {
+  localStorage.clear();
+}
 
 const store = configureStore(initialState, history)
-
 
 
 // Render the React application to the DOM

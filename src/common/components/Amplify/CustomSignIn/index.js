@@ -46,6 +46,7 @@ class CustomSignIn extends SignIn {
   signIn() {
     this.setLoading();
     try {
+      sessionStorage.setItem('init', 'init');
       super.signIn();
     } catch (error) {
       this.setLoading();
