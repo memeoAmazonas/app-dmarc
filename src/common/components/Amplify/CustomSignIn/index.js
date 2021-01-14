@@ -32,6 +32,7 @@ class CustomSignIn extends SignIn {
     this.state = Object.assign({
       loading: false,
     }, super.state); // extend parent state
+    this.onChangeText = this.onChangeText.bind(this);
   }
 
   setLoading() {
@@ -59,6 +60,12 @@ class CustomSignIn extends SignIn {
     }
   }
 
+  onChangeText(event) {
+    const actuallyEvent = event;
+    actuallyEvent.target.value = event.target.value.replaceAll(' ', '');
+    this.handleInputChange(actuallyEvent);
+  }
+
   showComponent() {
     const { loading } = this.state;
     return (
@@ -75,7 +82,7 @@ class CustomSignIn extends SignIn {
                   id="username"
                   name="username"
                   label="Username"
-                  onChange={this.handleInputChange}
+                  onChange={this.onChangeText}
                   margin="normal"
                   variant="outlined"
                   placeholder="Username"
