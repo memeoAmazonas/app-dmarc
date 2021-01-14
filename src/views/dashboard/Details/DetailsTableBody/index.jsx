@@ -55,13 +55,13 @@ const DetailsTableBody = ({ intl, details }) => {
                 {intl.formatNumber(details[domainName].getPercentage('dmarc', 'pass'), { style: 'percent' })}
               </BodyItem>
               <BodyItem dmarcvariant="dark" align="center">
-                {details[domainName].authorized.total}
+                {details[domainName].authorized.pass}
               </BodyItem>
               <BodyItem dmarcvariant="dark" align="center">
                 {intl.formatNumber(details[domainName].getPercentage('authorized', 'pass'), { style: 'percent' })}
               </BodyItem>
               <BodyItem dmarcvariant="dark" align="center">
-                {details[domainName].authenticated.total}
+                {details[domainName].authenticated.pass}
               </BodyItem>
               <BodyItem dmarcvariant="dark" align="center">
                 {intl.formatNumber(details[domainName].getPercentage('authenticated', 'pass'), { style: 'percent' })}
