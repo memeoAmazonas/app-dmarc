@@ -46,7 +46,7 @@ const ChartRow = ({
         <Chart
           variant="doughnut"
           data={spfData}
-          extraLabel={intl.formatNumber(_.get(spf, 'percentage', 0), { style: 'percent' })}
+          extraLabel={intl.formatNumber(_.get(spf, 'percentage', 0), { style: 'percent', maximumFractionDigits: 2 })}
           labels={commonLabels}
           headerKey="risk.dashboard.spf.graph.header"
         />
@@ -55,7 +55,7 @@ const ChartRow = ({
         <Chart
           variant="doughnut"
           data={dkimData}
-          extraLabel={intl.formatNumber(_.get(dkim, 'percentage', 0), { style: 'percent' })}
+          extraLabel={intl.formatNumber(_.get(dkim, 'percentage', 0), { style: 'percent', maximumFractionDigits: 2 })}
           labels={commonLabels}
           headerKey="risk.dashboard.dkim.graph.header"
         />

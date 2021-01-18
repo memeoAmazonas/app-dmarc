@@ -12,7 +12,7 @@ import DomainCount from './DomainCount';
 const Summary = ({ intl, summary = Object(), amount = 0 }) => {
   const getPercentage = (state, status) => {
     if (!_.isEmpty(summary)) {
-      return intl.formatNumber(summary.getPercentage(state, status), { style: 'percent' });
+      return intl.formatNumber(summary.getPercentage(state, status), { style: 'percent', maximumFractionDigits: 2 });
     }
     return '';
   }
