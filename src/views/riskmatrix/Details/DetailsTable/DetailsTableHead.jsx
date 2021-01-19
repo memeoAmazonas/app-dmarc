@@ -13,9 +13,10 @@ export const DetailsTableHead = ({ variant, extra }) => {
           <b>
             <FormattedMessage id={
               variant === TableVariants.SENDER
-              ? "risk.matrix.table.senders"
-              : "risk.matrix.table.ip"
-            }/>
+                ? 'risk.matrix.table.senders'
+                : 'risk.matrix.table.ip'
+            }
+            />
           </b>
         </Font>
       </Item>

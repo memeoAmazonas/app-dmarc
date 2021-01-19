@@ -34,7 +34,12 @@ const Dashboard = ({
     }
     Scroll.scrollTop()
   }, [customerId]);
-
+  const getPercentage = (state, status) => {
+    if (!_.isEmpty(total)) {
+      return intl.formatNumber(total.getPercentage(state, status), { style: 'percent', maximumFractionDigits: 2 });
+    }
+    return '';
+  }
   return (
     <Layout>
       <Grid container spacing={2}>
@@ -52,6 +57,7 @@ const Dashboard = ({
               _.get(total.authorized, 'pass'),
               _.get(total.authorized, 'fail'),
             ]}
+            extraLabel={getPercentage('authorized', 'pass')}
             labels={[
               format({ id: 'dashboard.charts.authorized' }),
               format({ id: 'dashboard.charts.unauthorized' }),
@@ -66,6 +72,7 @@ const Dashboard = ({
               _.get(total.authenticated, 'pass'),
               _.get(total.authenticated, 'fail'),
             ]}
+            extraLabel={getPercentage('authenticated', 'pass')}
             labels={[
               format({ id: 'dashboard.charts.authenticated' }),
               format({ id: 'dashboard.charts.unauthenticated' }),

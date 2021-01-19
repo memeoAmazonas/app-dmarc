@@ -7,7 +7,6 @@ export const TableVariants = Object.freeze({
 
 export const FormattingOptions = {
   style: 'percent',
-  minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 }
 

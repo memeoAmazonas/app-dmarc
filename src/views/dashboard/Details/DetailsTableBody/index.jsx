@@ -52,19 +52,19 @@ const DetailsTableBody = ({ intl, details }) => {
                 {details[domainName].dmarc.pass}
               </BodyItem>
               <BodyItem align="center">
-                {intl.formatNumber(details[domainName].getPercentage('dmarc', 'pass'), { style: 'percent' })}
+                {intl.formatNumber(details[domainName].getPercentage('dmarc', 'pass'), { style: 'percent', maximumFractionDigits: 2 })}
               </BodyItem>
               <BodyItem dmarcvariant="dark" align="center">
                 {details[domainName].authorized.pass}
               </BodyItem>
               <BodyItem dmarcvariant="dark" align="center">
-                {intl.formatNumber(details[domainName].getPercentage('authorized', 'pass'), { style: 'percent' })}
+                {intl.formatNumber(details[domainName].getPercentage('authorized', 'pass'), { style: 'percent', maximumFractionDigits: 2 })}
               </BodyItem>
               <BodyItem dmarcvariant="dark" align="center">
                 {details[domainName].authenticated.pass}
               </BodyItem>
               <BodyItem dmarcvariant="dark" align="center">
-                {intl.formatNumber(details[domainName].getPercentage('authenticated', 'pass'), { style: 'percent' })}
+                {intl.formatNumber(details[domainName].getPercentage('authenticated', 'pass'), { style: 'percent', maximumFractionDigits: 2 })}
               </BodyItem>
             </TableRow>
           ))
