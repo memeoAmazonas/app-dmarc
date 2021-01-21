@@ -15,6 +15,7 @@ import { RangeSelector } from 'common/components/RangeSelector';
 import Chart from 'common/components/Chart';
 import Layout from 'common/components/Layout'
 import Separator from 'common/components/Separator';
+import { FormatNumberESService } from 'common/utils/services/formatNumberES.service';
 import Details from './Details';
 import Summary from './Summary';
 
@@ -54,8 +55,8 @@ const Dashboard = ({
           <Chart
             variant="doughnut"
             data={[
-              _.get(total.authorized, 'pass'),
-              _.get(total.authorized, 'fail'),
+              _.get(total.authorized, 'pass', 0),
+               _.get(total.authorized, 'fail', 0),
             ]}
             extraLabel={getPercentage('authorized', 'pass')}
             labels={[
@@ -69,8 +70,8 @@ const Dashboard = ({
           <Chart
             variant="doughnut"
             data={[
-              _.get(total.authenticated, 'pass'),
-              _.get(total.authenticated, 'fail'),
+              _.get(total.authenticated, 'pass', 0),
+              _.get(total.authenticated, 'fail', 0),
             ]}
             extraLabel={getPercentage('authenticated', 'pass')}
             labels={[

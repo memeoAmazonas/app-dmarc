@@ -6,6 +6,7 @@ import Info from 'common/components/Info';
 import Grid from '@material-ui/core/Grid';
 
 import FlexContainer from 'common/components/FlexContainer';
+import { FormatNumberESService } from 'common/utils/services/formatNumberES.service';
 import DomainCount from './DomainCount';
 
 
@@ -31,8 +32,8 @@ const Summary = ({ intl, summary = Object(), amount = 0 }) => {
             intl.formatMessage({ id: 'dashboard.summary.dmarcPassPerc' }),
           ]}
           data={[
-            _.get(summary, 'states.totalMessages'),
-            _.get(summary, 'states.dmarc.pass'),
+            FormatNumberESService.formatNumber(intl, _.get(summary, 'states.totalMessages', 0)),
+            FormatNumberESService.formatNumber(intl, (_.get(summary, 'states.dmarc.pass', 0))),
             getPercentage('dmarc', 'pass'),
           ]}
         />
@@ -45,7 +46,7 @@ const Summary = ({ intl, summary = Object(), amount = 0 }) => {
             intl.formatMessage({ id: 'dashboard.summary.authMessagesPerc' }),
           ]}
           data={[
-            _.get(summary, 'states.authorized.pass'),
+            FormatNumberESService.formatNumber(intl, _.get(summary, 'states.authorized.pass', 0)),
             getPercentage('authorized', 'pass'),
           ]}
         />
@@ -58,7 +59,7 @@ const Summary = ({ intl, summary = Object(), amount = 0 }) => {
             intl.formatMessage({ id: 'dashboard.summary.authenticatedMessagesPerc' }),
           ]}
           data={[
-            _.get(summary, 'states.authenticated.pass'),
+            FormatNumberESService.formatNumber(intl, _.get(summary, 'states.authenticated.pass', 0)),
             getPercentage('authenticated', 'pass'),
           ]}
         />
