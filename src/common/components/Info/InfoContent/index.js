@@ -1,9 +1,11 @@
 import React from 'react';
-import _ from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 import styled from 'styled-components';
+import { injectIntl } from 'react-intl';
 
 import Skeleton from '@material-ui/lab/Skeleton';
 import Font from 'common/components/Font';
+import { FormatNumberESService } from 'common/utils/services/formatNumberES.service';
 
 
 const Wrapper = styled.div`
@@ -18,7 +20,9 @@ const Label = styled.header`
   max-width: 100px;
 `;
 
-const InfoContent = ({ ready, labels, data }) => {
+const InfoContent = ({
+  ready, labels, data, intl, setFormat = true,
+}) => {
   return (
     <React.Fragment>
       {
@@ -26,14 +30,14 @@ const InfoContent = ({ ready, labels, data }) => {
           <Wrapper>
             {
               data.map((dataVal, idx) => (
-                <div key={_.uniqueId(`info-${dataVal}-`)}>
+                <div key={uniqueId(`info-${dataVal}-`)}>
                   <Label>
                     <Font variant="body2" component="h3">
                       {labels[idx]}
                     </Font>
                   </Label>
                   <Font variant="h3" component="div">
-                    <b>{dataVal}</b>
+                    <b>{setFormat ? dataVal : FormatNumberESService.formatNumber(intl, dataVal)}</b>
                   </Font>
                 </div>
               ))
@@ -47,4 +51,4 @@ const InfoContent = ({ ready, labels, data }) => {
   )
 }
 
-export default InfoContent;
+export default injectIntl(InfoContent);

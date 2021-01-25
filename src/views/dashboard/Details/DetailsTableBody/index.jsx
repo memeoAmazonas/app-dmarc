@@ -10,6 +10,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 
 import Font from 'common/components/Font';
+import { FormatNumberESService } from 'common/utils/services/formatNumberES.service';
 
 const ShadedTableCell = styled(TableCell)((props) => (`
   background-color: ${props.dmarcvariant === 'dark' ? props.theme.colors.blue1 : 'inherit'};
@@ -46,22 +47,22 @@ const DetailsTableBody = ({ intl, details }) => {
                 </Link>
               </BodyItem>
               <BodyItem align="center">
-                {details[domainName].totalMessages}
+                {FormatNumberESService.formatNumber(intl, details[domainName].totalMessages)}
               </BodyItem>
               <BodyItem align="center">
-                {details[domainName].dmarc.pass}
+                {FormatNumberESService.formatNumber(intl, details[domainName].dmarc.pass)}
               </BodyItem>
               <BodyItem align="center">
                 {intl.formatNumber(details[domainName].getPercentage('dmarc', 'pass'), { style: 'percent', maximumFractionDigits: 2 })}
               </BodyItem>
               <BodyItem dmarcvariant="dark" align="center">
-                {details[domainName].authorized.pass}
+                {FormatNumberESService.formatNumber(intl, details[domainName].authorized.pass)}
               </BodyItem>
               <BodyItem dmarcvariant="dark" align="center">
                 {intl.formatNumber(details[domainName].getPercentage('authorized', 'pass'), { style: 'percent', maximumFractionDigits: 2 })}
               </BodyItem>
               <BodyItem dmarcvariant="dark" align="center">
-                {details[domainName].authenticated.pass}
+                {FormatNumberESService.formatNumber(intl, details[domainName].authenticated.pass)}
               </BodyItem>
               <BodyItem dmarcvariant="dark" align="center">
                 {intl.formatNumber(details[domainName].getPercentage('authenticated', 'pass'), { style: 'percent', maximumFractionDigits: 2 })}

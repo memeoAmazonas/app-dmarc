@@ -56,7 +56,7 @@ export const DetailsTableHead = ({ variant, extra }) => {
         </Font>
       </Item>
       {
-          variant === TableVariants.SENDER ? (
+          variant === TableVariants.SENDER && (
             <Item>
               <Font variant="h5" component="span">
                 <b>
@@ -64,7 +64,7 @@ export const DetailsTableHead = ({ variant, extra }) => {
                 </b>
               </Font>
             </Item>
-          ) : (null)
+          )
         }
       <Item>
         <Font variant="h5" component="span">
@@ -74,7 +74,7 @@ export const DetailsTableHead = ({ variant, extra }) => {
         </Font>
       </Item>
       {
-          variant === TableVariants.IP && extra ? (
+          variant === TableVariants.IP && extra && (
             <React.Fragment>
               <Item align="center">
                 <Font variant="h5" component="span">
@@ -92,7 +92,7 @@ export const DetailsTableHead = ({ variant, extra }) => {
                 </Font>
               </Item>
             </React.Fragment>
-          ) : (null)
+          )
         }
     </RowWrapper>
   )

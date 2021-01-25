@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import _ from 'lodash';
 import styled from 'styled-components';
-import { FormattedNumber, FormattedMessage } from 'react-intl'
+import { FormattedNumber } from 'react-intl'
 
 import { FixedSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -11,6 +11,7 @@ import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Button from 'common/components/Button'
 import { SpfDkimSummary } from 'common/classes/records/dmarc.class'
 import Font from 'common/components/Font';
+import { FormatNumberESService } from 'common/utils/services/formatNumberES.service';
 import { DetailsTableHead } from './DetailsTableHead'
 import { DetailsSubTable } from './DetailsSubTable'
 import {
@@ -37,7 +38,7 @@ const prepareForVariantDisplay = (records, variant) => {
   return summary;
 }
 
-export const DetailsTable = ({ variant, records }) => {
+export const DetailsTable = ({ variant, records, intl }) => {
   const [selected, setSelected] = useState(-1);
   const [previous, setPrevious] = useState();
   const listRef = useRef();
@@ -71,18 +72,16 @@ export const DetailsTable = ({ variant, records }) => {
             decoration="none"
             onClick={() => selectIndex(index)}
           >
-              {
-                selected === index ? (
+            {
+                selected === index && (
                   <KeyboardArrowLeftIcon />
-                ) : null
+                )
               }
-              <Font variant="h5" component="span">
-                <b>{ summary.identifier }</b>
-              </Font>
-              {
-                selected === index ? (
-                  null
-                ) : (<KeyboardArrowRightIcon />)
+            <Font variant="h5" component="span">
+              <b>{ summary.identifier }</b>
+            </Font>
+            {
+                !(selected === index) && (<KeyboardArrowRightIcon />)
               }
           </Button>
         </Item>
@@ -124,28 +123,30 @@ export const DetailsTable = ({ variant, records }) => {
         </Item>
         <React.Fragment>
           {
-            variant === TableVariants.SENDER ? (
+            variant === TableVariants.SENDER && (
               <Item align="center">
                 <Font variant="h5" component="span">
-                  { summary.detail.ips }
+                  { FormatNumberESService
+                    .formatNumber(intl, summary.detail.ips ? summary.detail.ips : 0) }
                 </Font>
               </Item>
-            ) : (null)
+            )
           }
         </React.Fragment>
         <Item align="center">
           <Font variant="h5" component="span">
-            { summary.totalMessages }
+            { FormatNumberESService
+              .formatNumber(intl, summary.totalMessages ? summary.totalMessages : 0) }
           </Font>
         </Item>
         {
-           variant === TableVariants.IP && selected >= 0 ? (
-            <React.Fragment>
-              <Item>-</Item>
-              <Item>-</Item>
-              <Item>-</Item>
-            </React.Fragment>
-           ) : null
+           variant === TableVariants.IP && selected >= 0 && (
+             <React.Fragment>
+               <Item>-</Item>
+               <Item>-</Item>
+               <Item>-</Item>
+             </React.Fragment>
+           )
         }
       </RowWrapper>
     )

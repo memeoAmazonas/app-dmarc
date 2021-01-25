@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -28,7 +27,7 @@ const StyledButton = styled(Button)`
 `;
 
 const FilterToggle = ({
-  ready, setDisplay, resetRecordState, showReset
+  ready, setDisplay, resetRecordState, showReset,
 }) => {
   const resetFilters = () => {
     setDisplay(DEFAULT_DISPLAY);
@@ -46,7 +45,7 @@ const FilterToggle = ({
       ) : <Skeleton height={6} width="30%" />
     }
       {
-      showReset ? (
+      showReset && (
         <StyledButton
           onClick={resetFilters}
           size="small"
@@ -55,7 +54,7 @@ const FilterToggle = ({
         >
           <FormattedMessage id="risk.dashboard.filters.reset" />
         </StyledButton>
-      ) : (null)
+      )
     }
     </Container>
   );

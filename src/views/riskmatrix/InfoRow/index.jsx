@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 
 import { injectIntl } from 'react-intl';
 import Grid from '@material-ui/core/Grid';
@@ -27,6 +26,7 @@ const InfoRow = ({
             intl.formatMessage({ id: 'risk.dashboard.dmarc.pass' })
           }
           data={[dmarc.pass]}
+          setFormat={false}
         />
       </Grid>
       <Grid item xs={12} md={3}>
@@ -35,6 +35,7 @@ const InfoRow = ({
             intl.formatMessage({ id: 'risk.dashboard.info.pass' })
           }
           data={[authenticated.pass]}
+          setFormat={false}
         />
       </Grid>
       <Grid item xs={12} md={3}>
@@ -43,6 +44,7 @@ const InfoRow = ({
             intl.formatMessage({ id: 'risk.dashboard.info.not_pass' })
           }
           data={[authenticated.fail]}
+          setFormat={false}
         />
       </Grid>
     </FlexContainer>

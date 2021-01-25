@@ -7,8 +7,6 @@ import { theme } from 'src/theme';
 import Font from 'common/components/Font';
 
 const buttonBackgroundColor = ({ status }) => {
-
-
   if (status === undefined) {
     return 'transparent';
   }
@@ -28,7 +26,7 @@ const StyledButton = styled(Button)(({ meta }) => (`
   &.MuiButtonBase-root {
     box-shadow: ${meta.selected ? '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);' : 'none'};
     transform: ${meta.selected ? 'scale(1.1)' : 'none'};
-    min-width: 90px;
+    min-width: ${meta.minWidth};
     padding: ${meta.isHeader ? '0px' : '15px 45px'};
     margin: 10px;
     background-color: ${buttonBackgroundColor(meta)};
@@ -44,14 +42,11 @@ const StyledButton = styled(Button)(({ meta }) => (`
   }
 `));
 
-const CellButton = ({ label, meta = {}, ...rest }) => {
-  return (
-    <StyledButton {...rest} meta={meta}>
-      <Font variant={meta.isHeader ? 'body1' : 'h3'} component="span">
-        {label}
-      </Font>
-    </StyledButton>
-  )
-}
-
+const CellButton = ({ label, meta = {}, ...rest }) => (
+  <StyledButton {...rest} meta={meta}>
+    <Font variant={meta.isHeader ? 'body1' : 'h3'} component="span">
+      {label}
+    </Font>
+  </StyledButton>
+)
 export default CellButton;

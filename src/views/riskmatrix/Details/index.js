@@ -49,16 +49,16 @@ const RecordsDetails = ({ records = [], matrixFilter, intl }) => {
       </Tabs>
       <TabPanel value={tabIndex} index={0}>
         {
-            tabIndex === 0 ? (
-              <DetailsTable records={records} variant={TableVariants.SENDER} />
-            ) : (null)
+            tabIndex === 0 && (
+              <DetailsTable intl={intl} records={records} variant={TableVariants.SENDER} />
+            )
           }
       </TabPanel>
       <TabPanel value={tabIndex} index={1}>
         {
-            tabIndex === 1 ? (
-              <DetailsTable records={records} variant={TableVariants.IP} />
-            ) : (null)
+            tabIndex === 1 && (
+              <DetailsTable intl={intl} records={records} variant={TableVariants.IP} />
+            )
           }
       </TabPanel>
     </Card>

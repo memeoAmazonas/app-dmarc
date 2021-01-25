@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
-import _ from 'lodash';
+import React from 'react';
+import get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
 
 import { asyncActions } from 'rdx/summary/actions'
@@ -23,8 +24,8 @@ import Dates from './Dates';
 const MatrixDashboard = ({
   customerId, domain, loadPrecalculated, domainDetails,
 }) => {
-  useEffect(() => {
-    if (customerId && _.isEmpty(domainDetails)) loadPrecalculated({ customerId });
+  React.useEffect(() => {
+    if (customerId && isEmpty(domainDetails)) loadPrecalculated({ customerId });
     Scroll.scrollTop()
   }, [customerId]);
 
@@ -54,13 +55,13 @@ const MatrixDashboard = ({
             <DomainHeader domain={domain} />
           </Grid>
           <InfoRow
-            authenticated={_.get(domainDetails, 'totalAuthenticated', {})}
-            dmarc={_.get(domainDetails, 'dmarc', {})}
-            totalMessages={_.get(domainDetails, 'totalMessages')}
+            authenticated={get(domainDetails, 'totalAuthenticated', {})}
+            dmarc={get(domainDetails, 'dmarc', {})}
+            totalMessages={get(domainDetails, 'totalMessages')}
           />
           <ChartRow />
           <Matrix
-            state={_.get(domainDetails, 'matrixState')}
+            state={get(domainDetails, 'matrixState')}
           />
         </Grid>
         <Grid container spacing={2}>
