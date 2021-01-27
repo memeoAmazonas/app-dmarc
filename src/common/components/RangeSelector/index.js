@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { FormattedMessage } from 'react-intl';
+
 
 import Card from 'common/components/Card'
 import Font from 'common/components/Font'
@@ -26,7 +26,9 @@ const Header = styled.div`
   margin-bottom: 10px;
 `;
 
-const Component = ({ selected, resetRecordState, intl, selectDisplay: select }) => {
+const Component = ({
+  selected, resetRecordState, intl, selectDisplay: select,
+}) => {
   const RANGES = [1, 7, 14, 30, 90]
 
   useEffect(() => {
@@ -71,7 +73,7 @@ const Component = ({ selected, resetRecordState, intl, selectDisplay: select }) 
             key={-1}
             value={-1}
             control={<Radio color="primary" />}
-            label={intl.formatMessage({ id: 'common.dashboard.custom'})}
+            label={intl.formatMessage({ id: 'common.dashboard.custom' })}
           />
         </RadioGroup>
       </div>
