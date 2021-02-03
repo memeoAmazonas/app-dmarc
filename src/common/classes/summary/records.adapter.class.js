@@ -1,7 +1,7 @@
 import _ from 'lodash'
 
 import { Record } from 'common/classes/records/record.class'
-import { STATUS } from 'common/constants';
+import { STATUS } from 'common/constants/constants';
 import { initialState } from './summary.state'
 
 

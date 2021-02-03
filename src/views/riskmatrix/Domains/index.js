@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 
@@ -16,7 +16,7 @@ import { resetRecords } from 'rdx/records/actions';
 import { currentDomainSelector, domainsSelector } from 'rdx/summary/selectors';
 import Font from 'common/components/Font';
 import Card from 'common/components/Card';
-import { DEFAULT_DISPLAY } from 'common/constants'
+import { DEFAULT_DISPLAY } from 'common/constants/constants'
 
 
 const StyledCard = styled(Card)`
@@ -35,7 +35,7 @@ const DomainList = styled.div`
 
 const Domains = ({
   domains, domain, setDomain, history, location,
-  setDisplay, resetRecordState,
+  setDisplay, resetRecordState, type = 'riskmatrix',
 }) => {
   const locationRegex = location.search.match(/domain=([^&]*)/);
   const domainNames = Object.keys(domains)
@@ -45,12 +45,16 @@ const Domains = ({
     setDomain(event.target.value)
     resetRecordState();
     setDisplay(DEFAULT_DISPLAY)
-    history.push(`/riskmatrix?domain=${event.target.value}`);
+    history.push(`/${type}?domain=${event.target.value}`);
     Scroll.scrollTop();
   };
-
-  useEffect(() => {
-    setDomain(locationRegex[1]);
+  React.useEffect(() => {
+    if (locationRegex) {
+      setDomain(locationRegex[1]);
+    } else {
+      setDomain(domainNames[0]);
+      history.push(`/${type}?domain=${domainNames[0]}`);
+    }
   }, [])
 
   return (

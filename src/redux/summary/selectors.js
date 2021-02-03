@@ -4,8 +4,8 @@ import { createSelector } from 'reselect'
 import { recordItemsSelector } from 'rdx/records/selectors'
 import { Summary } from 'common/classes/summary/summary.class';
 import { SummaryRecordsAdapter } from 'common/classes/summary/records.adapter.class';
+import { DEFAULT_DISPLAY } from 'common/constants/constants'
 import { computeTotalMessages } from './parsers'
-import { DEFAULT_DISPLAY } from 'common/constants'
 
 
 const summaryDataSelector = (state) => state.summary
@@ -76,7 +76,6 @@ export const domainDetailsSelector = createSelector(
   domainDetailsFromPrecalculatedSelector,
   domainDetailsFromRecordsSelector,
   (customFilterActive, fromPrecalculated, fromRecords) => {
-
     if (customFilterActive) {
       return fromRecords
     }
@@ -88,5 +87,5 @@ export const domainDetailsSelector = createSelector(
 export const showFilterResetSelector = createSelector(
   displaySelector,
   recordItemsSelector,
-  (display, records) =>  display !== DEFAULT_DISPLAY || !_.isEmpty(records)
+  (display, records) => display !== DEFAULT_DISPLAY || !_.isEmpty(records)
 )

@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { Map } from 'immutable';
 
-import { DEFAULT_DISPLAY } from 'common/constants'
+import { DEFAULT_DISPLAY } from 'common/constants/constants'
 import { asyncActions, constants } from './actions'
 
 

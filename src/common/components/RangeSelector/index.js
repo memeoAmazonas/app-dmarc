@@ -12,7 +12,7 @@ import Card from 'common/components/Card'
 import Font from 'common/components/Font'
 import { selectDisplay } from 'rdx/summary/actions'
 import { displaySelector } from 'rdx/summary/selectors'
-import { DEFAULT_DISPLAY } from 'common/constants'
+import { DEFAULT_DISPLAY } from 'common/constants/constants'
 import { resetRecords } from 'rdx/records/actions'
 
 

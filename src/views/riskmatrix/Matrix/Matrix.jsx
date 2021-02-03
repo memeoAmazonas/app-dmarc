@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {connect, useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { connect, useSelector } from 'react-redux';
 import _ from 'lodash';
 import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
@@ -7,12 +7,13 @@ import Grid from '@material-ui/core/Grid';
 
 import { asyncActions, actions } from 'rdx/records/actions';
 import { withUserInfo } from 'common/components/Utilities/AuthProviders';
-import { STATUS } from 'common/constants';
+import { STATUS } from 'common/constants/constants';
 import Card from 'common/components/Card';
 import { dateFilterSelector, matrixFilterSelector } from 'rdx/records/selectors';
 import { currentDomainSelector, displaySelector } from 'rdx/summary/selectors';
 import { getMatrixPositionForApi } from 'rdx/records/parsers'
 import Skeleton from '@material-ui/lab/Skeleton';
+import { FormatNumberESService } from 'common/utils/services/formatNumberES.service';
 import CellButton from './CellButton';
 
 
@@ -20,11 +21,10 @@ const MatrixWrapper = styled(Card)`
   display: flex;
   justify-content: center;
 `;
-
 const Matrix = ({
   state, customerTable, domain, loadRecords,
   display, customerId, setMatrixFilter, dateFilter,
-  matrixFilter, intl
+  matrixFilter, intl,
 }) => {
   const weights = [1, 0, -1];
   const status = [STATUS.pass, STATUS.neutral, STATUS.fail];
@@ -60,11 +60,10 @@ const Matrix = ({
 
   const buildDefinition = () => {
     // [[{ label: 'pass'}, { label: 'neutral'}, {label: 'fail'}]]
-    const matrixHeaders = status.map(statusList => ({
-        label: intl.formatMessage({ id: `risk.matrix.header.${statusList[0]}` }),
-        x: 'header'
-      })
-    );
+    const matrixHeaders = status.map((statusList) => ({
+      label: intl.formatMessage({ id: `risk.matrix.header.${statusList[0]}` }),
+      x: 'header',
+    }));
     const matrix = [matrixHeaders];
 
     for (let i = 0; i < status.length; i += 1) {
@@ -88,33 +87,46 @@ const Matrix = ({
     matrix[0].unshift({ label: 'DKIM vs SPF', x: 'header' });
     for (let i = 0; i < status.length; i += 1) {
       matrix[i + 1].unshift({
-        label: intl.formatMessage({ id: `risk.matrix.header.${status[i][0]}`}),
-        x: 'header'
+        label: intl.formatMessage({ id: `risk.matrix.header.${status[i][0]}` }),
+        x: 'header',
       })
     }
 
     return matrix;
   }
-
+  const [minWidth, setMinWidth] = React.useState(90);
+  const [act, setAct] = React.useState(0);
+  const calculeValue = (value) => {
+    if (value.toString().length > act) {
+      setAct(value.toString().length);
+      if (value.toString().length > 8) {
+        setMinWidth((value.toString().length * 10) + 20);
+      }
+    }
+  };
   const renderMatrix = () => {
     const definition = buildDefinition();
-
     // Create the matrix rows
     const getRow = (rowIdx) => {
       const items = [];
       for (let i = 0; i < definition.length; i += 1) {
         const cellMetadata = definition[rowIdx][i];
+        const isHeader = cellMetadata.x === 'header';
+        const valueCell = FormatNumberESService.formatNumber(intl, cellMetadata.label);
+
+        calculeValue(valueCell);
         items.push(
           <CellButton
             meta={{
-              isHeader: cellMetadata.x === 'header',
+              isHeader,
               status: cellMetadata.weight,
-              selected: matrixFilter === cellMetadata.attrName
+              selected: matrixFilter === cellMetadata.attrName,
+              minWidth: `${minWidth}px`,
             }}
             onClick={onCellClick.bind(this, cellMetadata.attrName, Number(cellMetadata.label))}
             disableRipple={!cellMetadata.x}
             key={_.uniqueId(`matrix-cel-${rowIdx}-${i}`)}
-            label={cellMetadata.label}
+            label={isHeader ? cellMetadata.label : valueCell}
           />
         )
       }
@@ -127,7 +139,7 @@ const Matrix = ({
       for (let i = 0; i < definition.length; i += 1) {
         items.push(
           <Grid item xs={12} key={_.uniqueId(`matrix-row-${i}`)}>
-            { getRow(i) }
+            {getRow(i)}
           </Grid>
         )
       }
@@ -146,9 +158,9 @@ const Matrix = ({
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <MatrixWrapper padding="40px">
-          { _.isEmpty(displayState)
+          {_.isEmpty(displayState)
             ? (<Skeleton variant="rect" height={200} width="100%" />)
-            : (<div>{renderMatrix()}</div>) }
+            : (<div>{renderMatrix()}</div>)}
         </MatrixWrapper>
       </Grid>
     </Grid>

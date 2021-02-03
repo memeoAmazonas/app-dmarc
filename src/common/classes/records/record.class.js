@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 
-import { STATUS } from 'common/constants';
+import { STATUS } from 'common/constants/constants';
 
 export class Record {
   static getRecordsValue = (records: Record[] = []): number => {
@@ -148,10 +148,10 @@ export class Record {
   }
 
   get dmarcAligned(): boolean {
-    //return STATUS.pass.includes(this.RecordRowAlignmentDmarc);
-    return (STATUS.pass.includes(this.RecordAuthResultsSpfResult) &&
-    STATUS.pass.includes(this.RecordRowPolicyEvaluatedSpf)) || 
-    (STATUS.pass.includes(this.RecordAuthResultsDkimResult) &&
-    STATUS.pass.includes(this.RecordRowPolicyEvaluatedDkim));
+    // return STATUS.pass.includes(this.RecordRowAlignmentDmarc);
+    return (STATUS.pass.includes(this.RecordAuthResultsSpfResult)
+    && STATUS.pass.includes(this.RecordRowPolicyEvaluatedSpf))
+    || (STATUS.pass.includes(this.RecordAuthResultsDkimResult)
+    && STATUS.pass.includes(this.RecordRowPolicyEvaluatedDkim));
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import IdleTimer from 'react-idle-timer';
 
 import { Auth } from 'aws-amplify';
-import { SESSION_TIMEOUT } from 'common/constants';
+import { SESSION_TIMEOUT } from 'common/constants/constants';
 
 const ExpireSession = ({ history, logoutUser }) => {
   const idleTimerRef = React.useRef(null);

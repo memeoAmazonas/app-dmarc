@@ -4,36 +4,34 @@ import styled from 'styled-components';
 import { theme } from 'src/theme';
 import Font from 'common/components/Font';
 
-const ErrorBox = styled.div`
-  border: 1px solid ${theme.colors.red1};
-  padding: 10px;
-  background-color: rgba(245, 97, 97, 0.4);
+const Message = styled.div((props) => (`
+border: 1px solid ${props.borderColor};
+padding: 10px;
+background-color: ${props.backgroundColor};
   & .MuiTypography-body1 {
-    color: ${theme.colors.red1}
+    color: ${props.color}
   }
-`;
+`));
 
-const SuccessBox = styled.div`
-  border: 1px solid ${theme.colors.blue1};
-  padding: 10px;
-  background-color: rgba(63, 151, 233, 0.4);
-  & .MuiTypography-body1 {
-    color: ${theme.colors.blue1}
-  }
-`;
-
-const MessageBox = ({ message, variant = 'error' }) => {
-  const Box = variant === 'error' ? ErrorBox : SuccessBox
+const MessageBox = ({
+  message,
+  variant = 'error',
+  rest = {},
+}) => {
+  const isError = variant === 'error';
+  const { bg, borderColor, color } = rest;
+  const border = borderColor || (isError ? theme.colors.red1 : theme.colors.blue1);
+  const backgroundColor = bg || (isError ? 'rgba(245, 97, 97, 0.4)' : 'rgba(63, 151, 233, 0.4)');
+  const fontColor = color || (isError ? theme.colors.red1 : theme.colors.blue1);
   return (
     <React.Fragment>
-      { message ? (
-        <Box>
+      { message && (
+        <Message borderColor={border} backgroundColor={backgroundColor} color={fontColor}>
           <Font variant="body1" component="span">
             { message }
           </Font>
-        </Box>
-      ) : (null)
-    }
+        </Message>
+      )}
     </React.Fragment>
   )
 }

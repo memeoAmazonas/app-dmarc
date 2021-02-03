@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import {connect, useSelector} from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl'
 import styled from 'styled-components';
 
@@ -11,7 +11,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { asyncActions, actions } from 'rdx/records/actions';
 import { withUserInfo } from 'common/components/Utilities/AuthProviders';
-import {currentDomainSelector, selectIsCustomFilterActive} from 'rdx/summary/selectors';
+import { currentDomainSelector, selectIsCustomFilterActive } from 'rdx/summary/selectors';
 import { selectDisplay } from 'rdx/summary/actions'
 
 import Button from 'common/components/Button';
@@ -45,7 +45,8 @@ const Dates = ({
   useEffect(() => {
     if (!filteringByCustomDate) {
       setStartDate(null);
-      setEndDate(null);    }
+      setEndDate(null);
+    }
   }, [filteringByCustomDate]);
 
   const checkErrors = () => {
@@ -111,7 +112,8 @@ const Dates = ({
                 id="date-picker-after"
                 label={intl.formatMessage({ id: 'risk.dashboard.date.after' })}
                 value={startDate}
-                onChange={(date) => setStartDate(date)}
+                maxDate={new Date()}
+                onChange={(date) => { setStartDate(date); setEndDate(null) }}
               />
             </CenteredGrid>
             <CenteredGrid item md={12} xs={12}>
@@ -126,6 +128,9 @@ const Dates = ({
                 label={intl.formatMessage({ id: 'risk.dashboard.date.before' })}
                 value={endDate}
                 onChange={(date) => setEndDate(date)}
+                minDate={startDate}
+                maxDate={new Date()}
+                disabled={!startDate}
               />
             </CenteredGrid>
           </MuiPickersUtilsProvider>

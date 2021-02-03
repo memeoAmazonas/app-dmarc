@@ -130,14 +130,15 @@ export class Summary {
     alignedUnauthenticated: number, notAligned: number
   ) {
     this.validateAllowed(state, this._validAlignmentStates)
-
+    const percentage = (alignedAuthenticated + alignedUnauthenticated) / this.totalMessages;
     this.states.alignment = {
       ...this.states.alignment,
       [state]: {
         alignedAuthenticated,
         alignedUnauthenticated,
         notAligned,
-        percentage: (alignedAuthenticated + alignedUnauthenticated) / this.totalMessages,
+        // eslint-disable-next-line no-restricted-globals
+        percentage: isNaN(percentage) ? 0 : percentage,
       },
     }
   }

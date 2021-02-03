@@ -34,7 +34,12 @@ const Dashboard = ({
     }
     Scroll.scrollTop()
   }, [customerId]);
-
+  const getPercentage = (state, status) => {
+    if (!_.isEmpty(total)) {
+      return intl.formatNumber(total.getPercentage(state, status), { style: 'percent', maximumFractionDigits: 2 });
+    }
+    return '';
+  }
   return (
     <Layout>
       <Grid container spacing={2}>
@@ -49,9 +54,10 @@ const Dashboard = ({
           <Chart
             variant="doughnut"
             data={[
-              _.get(total.authorized, 'pass'),
-              _.get(total.authorized, 'fail'),
+              _.get(total.authorized, 'pass', 0),
+              _.get(total.authorized, 'fail', 0),
             ]}
+            extraLabel={getPercentage('authorized', 'pass')}
             labels={[
               format({ id: 'dashboard.charts.authorized' }),
               format({ id: 'dashboard.charts.unauthorized' }),
@@ -63,9 +69,10 @@ const Dashboard = ({
           <Chart
             variant="doughnut"
             data={[
-              _.get(total.authenticated, 'pass'),
-              _.get(total.authenticated, 'fail'),
+              _.get(total.authenticated, 'pass', 0),
+              _.get(total.authenticated, 'fail', 0),
             ]}
+            extraLabel={getPercentage('authenticated', 'pass')}
             labels={[
               format({ id: 'dashboard.charts.authenticated' }),
               format({ id: 'dashboard.charts.unauthenticated' }),
@@ -89,6 +96,7 @@ const Dashboard = ({
         </Grid>
         <Separator />
         <Summary summary={total} amount={Object.keys(domains || {}).length} />
+        <Separator />
         <Grid container>
           <Grid item md={12} xs={12}>
             <Details details={domains} />

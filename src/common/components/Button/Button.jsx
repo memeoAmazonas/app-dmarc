@@ -72,7 +72,9 @@ const getStyledComponent = (type) => {
   }
 }
 
-const LoadingButton = ({ loading, dmarcvariant, children, ...rest }) => {
+const LoadingButton = ({
+  loading, dmarcvariant, children, ...rest
+}) => {
   const Component = getStyledComponent(dmarcvariant);
 
   return (

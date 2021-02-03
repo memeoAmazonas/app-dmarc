@@ -18,7 +18,6 @@ export class Check {
 
   percentFormattingOptions = {
     style: 'percent',
-    minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }
 

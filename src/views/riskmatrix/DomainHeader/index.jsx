@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import _ from 'lodash';
+import isNil from 'lodash/isNil';
 
 import Skeleton from '@material-ui/lab/Skeleton';
 
@@ -14,7 +14,7 @@ const DomainHeader = ({ domain }) => {
   return (
     <StyledHeader>
       {
-      !_.isNil(domain) ? (
+      !isNil(domain) ? (
         <React.Fragment>
           <Font variant="h5" component="h2">
             {domain}
