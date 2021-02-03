@@ -139,7 +139,7 @@ const Dates = ({
           <ButtonSection>
             <Button
               onClick={fetchSummaryByDate}
-              dmarcvariant="secondary"
+              disabled={!startDate || !endDate}
             >
               <Font variant="h5" component="span">
                 <FormattedMessage id="risk.dashboard.date.search" />
