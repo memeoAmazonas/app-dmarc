@@ -1,19 +1,22 @@
 import React from 'react';
 import { orderBy } from 'lodash'
-import TableHeader from 'common/components/Table/TableHeader';
 import { LABEL_REPORT_TABLE } from 'common/constants/tabsTitles';
-import Table from '@material-ui/core/Table';
-import BodyTable from 'common/components/Table/BodyTable';
 import { FormatNumberESService } from 'common/utils/services/formatNumberES.service';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import countries from 'i18n-iso-countries';
-import TableContainer from '@material-ui/core/TableContainer';
-import MessageBox from 'common/components/MessageBox';
-import { theme } from 'src/theme';
+import styled from 'styled-components';
+import DmarcTable from 'common/components/Table/DmarcTable';
+
 
 countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
 countries.registerLocale(require('i18n-iso-countries/langs/es.json'));
 
+const TableCont = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+ `;
 const TableDetail = ({ details, intl }) => {
   const language = intl.locale === 'es' ? 'es' : 'en';
   const [orderByKey, setOrderByKey] = React.useState('cont');
@@ -26,17 +29,16 @@ const TableDetail = ({ details, intl }) => {
     },
     styles: {
       pais: {
-        width: '20%',
-        border: '2px solid red',
       },
       ip: {
-        width: '20%',
       },
       reverseDNS: {
-        width: '35%',
+      },
+      cont: {
       },
     },
   };
+
   const data = (orderBy(details, [orderByKey], [asc]));
   const onOrderBy = (key) => {
     if (key !== orderByKey) {
@@ -49,22 +51,17 @@ const TableDetail = ({ details, intl }) => {
     }
   }
   return (
-    <React.Fragment>
-      <Table>
-        <TableHeader titles={LABEL_REPORT_TABLE} type="dark" onClick={onOrderBy} />
-      </Table>
-      { details && details.length > 0
-        ? (
-          <TableContainer style={{ height: 800 }}>
-            <Table>
-              <BodyTable details={data} type="dark" formatData={formatData} />
-            </Table>
-          </TableContainer>
-        ) : (
-          <MessageBox variant="success" rest={{ bg: theme.colors.blue1, color: 'white' }} message={<FormattedMessage id="not.have.data" />} />
-        )
-        }
-    </React.Fragment>
+    <TableCont>
+      <DmarcTable
+        formatData={formatData}
+        details={data}
+        titles={LABEL_REPORT_TABLE}
+        onClick={onOrderBy}
+        classname="dark"
+        orderByKey={orderByKey}
+        asc={asc}
+      />
+    </TableCont>
   );
 };
 

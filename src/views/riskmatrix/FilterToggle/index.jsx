@@ -27,10 +27,11 @@ const StyledButton = styled(Button)`
 `;
 
 const FilterToggle = ({
-  ready, setDisplay, resetRecordState, showReset,
+  ready, setDisplay, resetRecordState, showReset, onReset = () => null,
 }) => {
   const resetFilters = () => {
     setDisplay(DEFAULT_DISPLAY);
+    onReset();
     resetRecordState();
     Scroll.scrollTop();
   }

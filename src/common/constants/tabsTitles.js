@@ -12,18 +12,15 @@ export const LABEL_REPORT_TABS = [
 export const LABEL_REPORT_TABLE = [
   {
     label: 'table.country',
-    width: '20%',
     key: 'pais',
   },
   {
     label: 'risk.matrix.table.ip',
-    width: '20%',
     key: 'ip',
   },
 
   {
     label: 'table.reversedns',
-    width: '35%',
     key: 'reverseDNS',
   },
   {

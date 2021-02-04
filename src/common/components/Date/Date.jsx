@@ -11,6 +11,9 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import Button from 'common/components/Button';
 import Card from 'common/components/Card';
 import Font from 'common/components/Font';
+import moment from 'moment';
+import GetSelector from 'rdx/newRedux/selectores/GetSelector';
+import { KEY_DISPLAY_SELECTED } from 'rdx/newRedux/selectores/keys';
 
 
 const CenteredGrid = styled(Grid)`
@@ -26,38 +29,15 @@ const ButtonSection = styled.div`
 
 
 const Dates = ({ onSearch, intl }) => {
-  // const filteringByCustomDate = useSelector(selectIsCustomFilterActive)
   const [startDate, setStartDate] = React.useState(null);
   const [endDate, setEndDate] = React.useState(null);
-
-  /*   React.useEffect(() => {
-     if (!filteringByCustomDate) {
-       setStartDate(null);
-       setEndDate(null);
-     }
-   }, [filteringByCustomDate]);
-
-   const fetchSummaryByDate = () => {
-     const msg = null;
-     if (!msg) {
-       resetRecords();
-       const start = moment(startDate).format('YYYY-MM-DD');
-       const end = moment(endDate).format('YYYY-MM-DD');
-
-       setDate({ start, end })
-       loadRecords({
-         requestObject: {
-           domain,
-           id: customerId,
-           table: customerTable,
-           startDate: start,
-           endDate: end,
-         },
-       })
-       setDisplay(-1)
-     }
-   } */
-
+  const diplaySelected = GetSelector(KEY_DISPLAY_SELECTED);
+  React.useEffect(() => {
+    if (diplaySelected !== -1) {
+      setStartDate(null);
+      setEndDate(null)
+    }
+  }, [diplaySelected])
   return (
     <React.Fragment>
       <Card padding="20px">
@@ -101,7 +81,7 @@ const Dates = ({ onSearch, intl }) => {
         <Grid item xs={12}>
           <ButtonSection>
             <Button
-              onClick={() => onSearch(startDate, endDate)}
+              onClick={() => onSearch(moment(startDate).format('YYYY-MM-DD'), moment(endDate).format('YYYY-MM-DD'))}
               disabled={!startDate || !endDate}
             >
               <Font variant="h5" component="span">

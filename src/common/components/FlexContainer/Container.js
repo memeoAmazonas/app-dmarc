@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
-const Container = styled.div(({ marginTop }) => (`
-margin-top: ${marginTop ? `${marginTop}px` : 0}
+const Container = styled.div(({ marginTop = 0, width = 'inherit', display = 'block' }) => (`
+margin-top: ${marginTop}px;
+width: ${width};
+display: ${display};
+justify-content: center;
 `));
 export default Container;

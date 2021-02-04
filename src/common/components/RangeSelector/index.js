@@ -27,7 +27,7 @@ const Header = styled.div`
 `;
 
 const Component = ({
-  selected, resetRecordState, intl, selectDisplay: select,
+  selected, resetRecordState, intl, selectDisplay: select, onSelect = () => null,
 }) => {
   const RANGES = [1, 7, 14, 30, 90]
 
@@ -38,7 +38,8 @@ const Component = ({
 
   const setDisplay = (event) => {
     resetRecordState();
-    select(Number(event.target.value))
+    select(Number(event.target.value));
+    onSelect();
   }
 
   return (
