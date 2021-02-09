@@ -71,6 +71,11 @@ webpackConfig.module.rules = webpackConfig.module.rules.concat([
     ],
   },
   {
+    type: 'javascript/auto',
+    test: /\.mjs$/,
+    use: [],
+  },
+  {
     // For pure CSS (without CSS modules)
     test: /\/node_modules\/.*-amplify\/.*css$/i,
     exclude: /\.module\.css$/i,
