@@ -35,6 +35,8 @@ import Font from 'common/components/Font';
 import { FormattedMessage } from 'react-intl';
 import Separator from 'common/components/Separator';
 import { theme } from 'src/theme';
+import RadioButtonList from 'common/components/RadioButtonList/RadioButtonList';
+import { RADIO_ITEMS_REPORT } from 'common/constants/radioButtonItems';
 
 const View = ({
   customerId, loadPrecalculated, domainDetails, intl, domain, setDisplay,
@@ -42,6 +44,7 @@ const View = ({
   const dispatch = useDispatch();
   const [tabIndex, setTabIndex] = React.useState(0);
   const [byDate, setByDate] = React.useState(false);
+  const [group, setGroup] = React.useState('0');
   const detailsReports = GetSelector(KEY_REPORT_DETAIL);
   const loading = GetSelector(KEY_REPORT_LOADING);
   const selected = GetSelector(KEY_DISPLAY_SELECTED);
@@ -56,6 +59,7 @@ const View = ({
         dominio: domain,
         type: 0,
         pos: 0,
+        group,
       },
       ...dataApi.report,
     }
@@ -70,7 +74,7 @@ const View = ({
     if (customerId) {
       setDispatchByDomain();
     }
-  }, [domain, customerId]);
+  }, [domain, customerId, group]);
   const setDispatchByDate = (
     dateOrigin,
     dateEnd,
@@ -111,6 +115,16 @@ const View = ({
   const details = detailsReports
     && ((!byDate && get(get(detailsReports, `type${selected}`), `pos${tabIndex + 1}`))
       || (byDate && get(detailsReports, `pos${tabIndex + 1}`)));
+
+  const onUmbralSelect = () => {
+    if (byDate) {
+      setDispatchByDomain();
+    }
+  }
+  const onReset = () => {
+    onUmbralSelect();
+    setGroup('0');
+  }
   return (
     <Layout>
       <Grid container spacing={3}>
@@ -126,9 +140,19 @@ const View = ({
                 showLink
                 onClick={() => {
                 }}
-                onReset={byDate ? setDispatchByDomain : null}
+                onReset={onReset}
               />
-              <RangeSelector onSelect={byDate ? setDispatchByDomain : null} />
+            </Grid>
+            <Grid item xs={12}>
+              <RadioButtonList
+                title="radio.button.group.by"
+                details={RADIO_ITEMS_REPORT}
+                onSelected={(e) => setGroup(e.target.value)}
+                selected={group}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <RangeSelector onSelect={onUmbralSelect} />
             </Grid>
             <Grid item xs={12}>
               <Domains type="report-360" />
@@ -136,6 +160,7 @@ const View = ({
             <Grid item xs={12}>
               <Date onSearch={(a, b) => onGetByDate(a, b)} />
             </Grid>
+
           </Grid>
         </Grid>
         <Grid item md={8} xs={12}>
