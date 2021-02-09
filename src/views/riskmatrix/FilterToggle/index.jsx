@@ -13,7 +13,6 @@ import { resetRecords } from 'rdx/records/actions'
 import { showFilterResetSelector } from 'rdx/summary/selectors'
 import { DEFAULT_DISPLAY } from 'common/constants/constants'
 
-
 const Container = styled.div`
   display:  flex;
   align-items: center;

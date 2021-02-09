@@ -19,10 +19,10 @@ export const LABEL_REPORT_TABLE = [
     key: 'ip',
   },
 
-  {
+  /*  {
     label: 'table.reversedns',
     key: 'reverseDNS',
-  },
+  }, */
   {
     label: 'dashboard.summary.messagesTotal',
     key: 'cont',

@@ -81,12 +81,14 @@
   "reports.tabs.labels.fail.pass":"FAIL/PASS",
   "reports.tabs.labels.fail.neutral":"FAIL/NEUTRAL",
   "reports.tabs.labels.fail.fail":"FAIL/FAIL",
+  "reports.radio.by.ip.country": "IP & Country",
   "table.country": "Country",
   "table.reversedns": "Reverse DNS",
   "empty": " ",
   "not.have.data": "There are no records to show",
   "date.select.start.and.end": "Must select a start and end date",
-  "date.end.greater.start": "End date must be greater than start date"
+  "date.end.greater.start": "End date must be greater than start date",
+  "radio.button.group.by": "Group by"
 
 
 }

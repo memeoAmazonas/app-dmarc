@@ -7,20 +7,13 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-
-import Card from 'common/components/Card'
 import Font from 'common/components/Font'
 import { selectDisplay } from 'rdx/summary/actions'
 import { displaySelector } from 'rdx/summary/selectors'
 import { DEFAULT_DISPLAY } from 'common/constants/constants'
 import { resetRecords } from 'rdx/records/actions'
+import { RangeSelectorContainer } from 'common/components/FlexContainer/CardContainer';
 
-
-const Contaier = styled(Card)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
 
 const Header = styled.div`
   margin-bottom: 10px;
@@ -43,7 +36,7 @@ const Component = ({
   }
 
   return (
-    <Contaier padding="25px">
+    <RangeSelectorContainer padding="25px">
       <Header>
         <Font variant="h3" component="h1">
           <FormattedMessage id="common.dashboard.filter.date" />
@@ -78,7 +71,7 @@ const Component = ({
           />
         </RadioGroup>
       </div>
-    </Contaier>
+    </RangeSelectorContainer>
   )
 }
 

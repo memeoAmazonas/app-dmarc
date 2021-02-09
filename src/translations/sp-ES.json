@@ -81,10 +81,12 @@
   "reports.tabs.labels.fail.pass":"FALLA/CORRECTO",
   "reports.tabs.labels.fail.neutral":"FALLA/NEUTRAL",
   "reports.tabs.labels.fail.fail":"FALLA/FALLA",
+  "reports.radio.by.ip.country": "IP & País",
   "table.country": "País",
   "table.reversedns": "Reverse DNS",
   "empty": " ",
   "not.have.data": "No hay registros para mostrar",
   "date.select.start.and.end": "Debe seleccionar una fecha de inicio y fin",
-  "date.end.greater.start": "La fecha de finalización debe ser mayor que la fecha de inicio"
+  "date.end.greater.start": "La fecha de finalización debe ser mayor que la fecha de inicio",
+  "radio.button.group.by": "Agrupar por"
 }
