@@ -23,8 +23,14 @@ const DefaultButton = styled(Button)(({ size, overrides = {} }) => (`
     padding: ${size === 'large' ? '12px 23px' : '6px 18px'};
 
     &:hover {
-      background-color: ${overrides.background || theme.colors.blue1};
-    }
+      background-color: ${overrides.background || theme.colors.grey5};
+      border: 1px solid ${overrides.background || theme.colors.blue1};
+      color: ${overrides.background || theme.colors.blue1};
+    };
+    &:disabled {
+        background-color: ${overrides.background || theme.colors.grey2};
+        color: ${overrides.color || theme.colors.grey5};
+    };
   }
   &.Mui-disabled {
     background-color: ${theme.colors.grey2};
@@ -72,7 +78,9 @@ const getStyledComponent = (type) => {
   }
 }
 
-const LoadingButton = ({ loading, dmarcvariant, children, ...rest }) => {
+const LoadingButton = ({
+  loading, dmarcvariant, children, ...rest
+}) => {
   const Component = getStyledComponent(dmarcvariant);
 
   return (

@@ -11,8 +11,7 @@ import Font from 'common/components/Font';
 import { selectDisplay } from 'rdx/summary/actions'
 import { resetRecords } from 'rdx/records/actions'
 import { showFilterResetSelector } from 'rdx/summary/selectors'
-import { DEFAULT_DISPLAY } from 'common/constants'
-
+import { DEFAULT_DISPLAY } from 'common/constants/constants'
 
 const Container = styled.div`
   display:  flex;
@@ -27,10 +26,11 @@ const StyledButton = styled(Button)`
 `;
 
 const FilterToggle = ({
-  ready, setDisplay, resetRecordState, showReset,
+  ready, setDisplay, resetRecordState, showReset, onReset = () => null,
 }) => {
   const resetFilters = () => {
     setDisplay(DEFAULT_DISPLAY);
+    onReset();
     resetRecordState();
     Scroll.scrollTop();
   }

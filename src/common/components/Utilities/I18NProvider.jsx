@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { IntlProvider, addLocaleData } from 'react-intl'
 import { connect } from 'react-redux';
 import { selectLanguage } from 'rdx/user/selectors'
@@ -9,8 +8,8 @@ import es from 'react-intl/locale-data/es';
 import enUS from 'src/translations/en-US.json'
 import ES from 'src/translations/sp-ES.json'
 
-
 addLocaleData([...en, ...es]);
+
 
 const messages = {
   'en-US': enUS,
@@ -20,7 +19,6 @@ const messages = {
 const TranslationContext = React.createContext();
 
 class I18NProvider extends React.PureComponent {
-
   render() {
     const { lang, children } = this.props
 

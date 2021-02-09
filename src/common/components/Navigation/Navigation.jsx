@@ -9,6 +9,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import LogoText from 'assets/images/logo-text.png';
 import WhiteIcon from 'common/components/Utilities/WhiteIcon';
+import ReportListItem from 'common/components/Navigation/ReportListItem';
 import SignOutListItem from './SignOutListItem';
 import DashboardListItem from './DashBoardListItem';
 import ChangePwdListItem from './ChangePwdListItem';
@@ -53,6 +54,8 @@ const SideNavigation = ({ open, onMenuClick }) => {
       <Divider />
       <List>
         <DashboardListItem />
+        <Divider />
+        <ReportListItem />
         <Divider />
         <ChangePwdListItem />
         <Divider />

@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { asyncActions, actions } from 'rdx/records/actions';
 import { withUserInfo } from 'common/components/Utilities/AuthProviders';
-import { STATUS } from 'common/constants';
+import { STATUS } from 'common/constants/constants';
 import Card from 'common/components/Card';
 import { dateFilterSelector, matrixFilterSelector } from 'rdx/records/selectors';
 import { currentDomainSelector, displaySelector } from 'rdx/summary/selectors';

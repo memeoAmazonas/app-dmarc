@@ -101,6 +101,7 @@
     "date-fns": "^2.3.0",
     "formik": "^2.1.4",
     "history": "^4.7.2",
+    "i18n-iso-countries": "^6.4.0",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
@@ -120,7 +121,9 @@
     "react-window": "^1.8.5",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.4",
+    "redux-logger": "^3.0.6",
     "redux-saga": "^1.0.1",
+    "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "styled-components": "^5.0.1",
     "yup": "^0.28.1"

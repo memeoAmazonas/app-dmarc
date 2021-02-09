@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-
-import styled from 'styled-components';
 
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -15,27 +13,13 @@ import { selectDomain, selectDisplay } from 'rdx/summary/actions'
 import { resetRecords } from 'rdx/records/actions';
 import { currentDomainSelector, domainsSelector } from 'rdx/summary/selectors';
 import Font from 'common/components/Font';
-import Card from 'common/components/Card';
-import { DEFAULT_DISPLAY } from 'common/constants'
-
-
-const StyledCard = styled(Card)`
-  padding: 20px;
-  max-height: 300px;
-`;
-
-const DomainList = styled.div`
-  margin-top: 10px;
-  border-radius: 10px;
-  max-width: 300px;
-  text-decoration: none;
-  padding-left: 10px;
-`;
+import { DEFAULT_DISPLAY } from 'common/constants/constants'
+import { ItemsRadioList, StyledCardRadio } from 'common/components/FlexContainer/CardContainer';
 
 
 const Domains = ({
   domains, domain, setDomain, history, location,
-  setDisplay, resetRecordState,
+  setDisplay, resetRecordState, type = 'riskmatrix',
 }) => {
   const locationRegex = location.search.match(/domain=([^&]*)/);
   const domainNames = Object.keys(domains)
@@ -45,23 +29,27 @@ const Domains = ({
     setDomain(event.target.value)
     resetRecordState();
     setDisplay(DEFAULT_DISPLAY)
-    history.push(`/riskmatrix?domain=${event.target.value}`);
+    history.push(`/${type}?domain=${event.target.value}`);
     Scroll.scrollTop();
   };
-
-  useEffect(() => {
-    setDomain(locationRegex[1]);
+  React.useEffect(() => {
+    if (locationRegex) {
+      setDomain(locationRegex[1]);
+    } else {
+      setDomain(domainNames[0]);
+      history.push(`/${type}?domain=${domainNames[0]}`);
+    }
   }, [])
 
   return (
-    <StyledCard>
+    <StyledCardRadio>
       {
         domainNames.length > 0 ? (
           <React.Fragment>
             <Font variant="h3" component="h2">
               <FormattedMessage id="dashboard.summary.header" values={{ count: domainNames.length }} />
             </Font>
-            <DomainList>
+            <ItemsRadioList>
               <RadioGroup
                 aria-label="domains"
                 name="domains"
@@ -79,7 +67,7 @@ const Domains = ({
                   ))
                 }
               </RadioGroup>
-            </DomainList>
+            </ItemsRadioList>
           </React.Fragment>
         ) : (
           <React.Fragment>
@@ -88,7 +76,7 @@ const Domains = ({
           </React.Fragment>
         )
       }
-    </StyledCard>
+    </StyledCardRadio>
   );
 };
 

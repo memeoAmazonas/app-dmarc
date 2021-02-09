@@ -4,6 +4,7 @@
   "menu.risk": "Risk Matrix",
   "menu.signOut": "Sign Out",
   "menu.changePassword": "Change Password",
+  "menu.report360": "Report360",
   "menu.change": "Change",
   "menu.cancel": "Cancel",
   "password.current": "Current Password",
@@ -70,5 +71,24 @@
   "risk.dashboard.info.not_pass": "Result SPF & DKIM Not Pass",
   "risk.dashboard.filters.reset": "Reset",
   "dialogs.fetching.message": "Fetching Data",
-  "dialogs.error.message": "Error Fetching Data. </br> Please contact support."
+  "dialogs.error.message": "Error Fetching Data. </br> Please contact support.",
+  "reports.tabs.labels.pass.pass":"PASS/PASS",
+  "reports.tabs.labels.pass.neutral":"PASS/NEUTRAL",
+  "reports.tabs.labels.pass.fail":"PASS/FAIL",
+  "reports.tabs.labels.neutral.pass":"NEUTRAL/PASS",
+  "reports.tabs.labels.neutral.neutral":"NEUTRAL/NEUTRAL",
+  "reports.tabs.labels.neutral.fail":"NEUTRAL/FAIL",
+  "reports.tabs.labels.fail.pass":"FAIL/PASS",
+  "reports.tabs.labels.fail.neutral":"FAIL/NEUTRAL",
+  "reports.tabs.labels.fail.fail":"FAIL/FAIL",
+  "reports.radio.by.ip.country": "IP & Country",
+  "table.country": "Country",
+  "table.reversedns": "Reverse DNS",
+  "empty": " ",
+  "not.have.data": "There are no records to show",
+  "date.select.start.and.end": "Must select a start and end date",
+  "date.end.greater.start": "End date must be greater than start date",
+  "radio.button.group.by": "Group by"
+
+
 }

@@ -1,32 +1,27 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { FormattedMessage } from 'react-intl';
 
-import Card from 'common/components/Card'
 import Font from 'common/components/Font'
 import { selectDisplay } from 'rdx/summary/actions'
 import { displaySelector } from 'rdx/summary/selectors'
-import { DEFAULT_DISPLAY } from 'common/constants'
+import { DEFAULT_DISPLAY } from 'common/constants/constants'
 import { resetRecords } from 'rdx/records/actions'
+import { RangeSelectorContainer } from 'common/components/FlexContainer/CardContainer';
 
-
-const Contaier = styled(Card)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
 
 const Header = styled.div`
   margin-bottom: 10px;
 `;
 
-const Component = ({ selected, resetRecordState, intl, selectDisplay: select }) => {
+const Component = ({
+  selected, resetRecordState, intl, selectDisplay: select, onSelect = () => null,
+}) => {
   const RANGES = [1, 7, 14, 30, 90]
 
   useEffect(() => {
@@ -36,11 +31,12 @@ const Component = ({ selected, resetRecordState, intl, selectDisplay: select }) 
 
   const setDisplay = (event) => {
     resetRecordState();
-    select(Number(event.target.value))
+    select(Number(event.target.value));
+    onSelect();
   }
 
   return (
-    <Contaier padding="25px">
+    <RangeSelectorContainer padding="25px">
       <Header>
         <Font variant="h3" component="h1">
           <FormattedMessage id="common.dashboard.filter.date" />
@@ -71,11 +67,11 @@ const Component = ({ selected, resetRecordState, intl, selectDisplay: select }) 
             key={-1}
             value={-1}
             control={<Radio color="primary" />}
-            label={intl.formatMessage({ id: 'common.dashboard.custom'})}
+            label={intl.formatMessage({ id: 'common.dashboard.custom' })}
           />
         </RadioGroup>
       </div>
-    </Contaier>
+    </RangeSelectorContainer>
   )
 }
 

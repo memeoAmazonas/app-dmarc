@@ -1,5 +1,7 @@
 import createSagaMiddleware from 'redux-saga'
+import { createLogger } from 'redux-logger';
 import { applyMiddleware, compose, createStore } from 'redux'
+import thunk from 'redux-thunk';
 
 import sagas from './sagas.bundle';
 import rootReducer from './rootReducers'
@@ -15,8 +17,8 @@ const reduxDevTool = () => {
 // history is passed here, for this example, we don't use history
 export default function configureStore(initialState, history) { // eslint-disable-line no-unused-vars, max-len
   const sagaMiddleware = createSagaMiddleware()
-
-  const middleware = applyMiddleware(sagaMiddleware)
+  const logger = createLogger();
+  const middleware = applyMiddleware(sagaMiddleware, thunk);
 
   const composedStoreEnhancer = compose(
     middleware,
