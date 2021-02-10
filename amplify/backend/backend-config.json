@@ -1,9 +1,0 @@
-{
-	"auth": {
-		"dmarcguardian25c42592": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": []
-		}
-	}
-}
