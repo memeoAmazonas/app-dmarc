@@ -13,6 +13,9 @@ const Wrapper = styled.div`
   text-align: center;
   align-items: flex-end;
   justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  padding: 15px;
 `;
 
 const Label = styled.header`
@@ -36,7 +39,7 @@ const InfoContent = ({
                       {labels[idx]}
                     </Font>
                   </Label>
-                  <Font variant="h3" component="div">
+                  <Font variant="h3" component="div" style={{margin: 10}}>
                     <b>{setFormat ? dataVal : FormatNumberESService.formatNumber(intl, dataVal)}</b>
                   </Font>
                 </div>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
+import { subMonths } from 'date-fns'
 import { connect, useSelector } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl'
 import styled from 'styled-components';
 
 
-import 'date-fns';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
@@ -92,7 +92,7 @@ const Dates = ({
       setDisplay(-1)
     }
   }
-
+  const minDate = (subMonths(new Date(), 1));
   return (
     <React.Fragment>
       <Card padding="20px">
@@ -112,6 +112,7 @@ const Dates = ({
                 id="date-picker-after"
                 label={intl.formatMessage({ id: 'risk.dashboard.date.after' })}
                 value={startDate}
+                minDate={minDate}
                 maxDate={new Date()}
                 onChange={(date) => { setStartDate(date); setEndDate(null) }}
               />

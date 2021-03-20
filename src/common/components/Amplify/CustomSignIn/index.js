@@ -1,18 +1,30 @@
 import React from 'react';
 import { SignIn } from 'aws-amplify-react';
-
 import styled from 'styled-components';
-
+import Auth from '@aws-amplify/auth';
+import { injectIntl, FormattedMessage, useIntl } from 'react-intl';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Logo from 'assets/images/logo-text.png';
 
+import Logo from 'assets/images/logo-text.png';
 import Button from 'common/components/Button';
 import Font from 'common/components/Font';
+
 import TextInput from 'common/components/TextInput';
+import { useDispatch } from 'react-redux';
+import Action from 'rdx/newRedux/actions/Action';
 import {
   AmplifyContainer, AmplifyWrapper, AmplifySurface,
 } from '../Styled';
+
+export function useFormatMessage(messageId) {
+  return useIntl().formatMessage({ id: messageId })
+}
+
+/*
+ * This is to override the custom sign in so we can skin it
+ * to match the application theme
+ */
 
 
 const LoginHeader = styled.header`
@@ -44,10 +56,25 @@ class CustomSignIn extends SignIn {
    * Override amplify signing and display a spinner
    * in the custom sign in button before continuing.
   */
+  async getResult(username, password) {
+    if (!username || username === '') {
+      sessionStorage.setItem('LOGIN_ERROR', 'ERROR de username');
+      return;
+    }
+    try {
+      const user = await Auth.signIn(username, password);
+    } catch (e) {
+      console.log('e.message', e.message);
+    }
+  }
+
   signIn() {
     this.setLoading();
     try {
       sessionStorage.setItem('init', 'init');
+      const username = this.getUsernameFromInput() || '';
+      const { password } = this.inputs;
+      this.getResult(username, password);
       super.signIn();
     } catch (error) {
       this.setLoading();
@@ -77,39 +104,47 @@ class CustomSignIn extends SignIn {
             </LoginHeader>
             <form>
               <Grid item md={12}>
-                <TextInput
-                  autoFocus
-                  id="username"
-                  name="username"
-                  label="Username"
-                  onChange={this.onChangeText}
-                  margin="normal"
-                  variant="outlined"
-                  placeholder="Username"
-                />
+                <FormattedMessage id="login.username">
+                  {(placeholder) => (
+                    <TextInput
+                      autoFocus
+                      id="username"
+                      name="username"
+                      label={placeholder}
+                      onChange={this.onChangeText}
+                      margin="normal"
+                      variant="outlined"
+                      placeholder={placeholder}
+                    />
+                  )}
+                </FormattedMessage>
               </Grid>
               <Grid item md={12}>
-                <TextInput
-                  id="password"
-                  name="password"
-                  label="Password"
-                  type="password"
-                  onChange={this.handleInputChange}
-                  autoComplete="current-password"
-                  margin="normal"
-                  variant="outlined"
-                  placeholder="******************"
-                />
+                <FormattedMessage id="password">
+                  {(placeholder) => (
+                    <TextInput
+                      id="password"
+                      name="password"
+                      label={placeholder}
+                      type="password"
+                      onChange={this.handleInputChange}
+                      autoComplete="current-password"
+                      margin="normal"
+                      variant="outlined"
+                      placeholder="******************"
+                    />
+                  )}
+                </FormattedMessage>
               </Grid>
               <Grid item md={12}>
                 <p>
                   <Font variant="body2" component="span">
-                    Forgot your password?{' '}
+                    <FormattedMessage id="password.forgot" />{' '}
                   </Font>
                   {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <Link onClick={() => super.changeState('forgotPassword')}>
                     <Font variant="body2" component="span">
-                      Reset Password
+                      <FormattedMessage id="password.reset" />
                     </Font>
                   </Link>
                 </p>
@@ -122,7 +157,7 @@ class CustomSignIn extends SignIn {
                   size="large"
                   loading={loading}
                 >
-                  <Font variant="h5">Log In</Font>
+                  <Font variant="h5"><FormattedMessage id="login" /></Font>
                 </Button>
               </Grid>
             </form>
@@ -133,4 +168,4 @@ class CustomSignIn extends SignIn {
   }
 }
 
-export default CustomSignIn;
+export default injectIntl(CustomSignIn);

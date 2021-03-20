@@ -3,19 +3,22 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import {
-  Authenticator, SignIn, SignUp, Greetings, ForgotPassword,
+  Authenticator, ForgotPassword, Greetings, SignIn, SignUp,
 } from 'aws-amplify-react';
 import { Router } from 'react-router-dom'
 import { Auth } from 'aws-amplify';
 import axios from 'axios';
-import { CustomSignIn, CustomForgotPassword } from 'common/components/Amplify';
+import { CustomForgotPassword, CustomSignIn } from 'common/components/Amplify';
 import I18NProvider from 'common/components/Utilities/I18NProvider'
+import GetSelector from 'rdx/newRedux/selectores/GetSelector';
+import { KEY_LANGUAGE } from 'rdx/newRedux/selectores/keys';
 import awsconfig from './aws-exports';
 import { theme } from './theme';
 
-
 const SIGNED_IN_STATE = 'signedIn';
-
+const getLanguage = () => {
+  return GetSelector(KEY_LANGUAGE);
+}
 class Root extends React.PureComponent {
   get content() {
     const { routes, history } = this.props
@@ -66,20 +69,27 @@ const withAuth = (WrappedComponent) => {
 
         // eslint-disable-next-line dot-notation
         axios.default.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
+        axios.default.defaults.timeout = 60000 * 2;
       }
     }
 
     render() {
+      const { store } = this.props;
       return (
-        <Authenticator
-          hide={[SignIn, SignUp, Greetings, ForgotPassword]}
-          amplifyConfig={awsconfig}
-          onStateChange={this._configureJWTToken}
-        >
-          <CustomSignIn />
-          <CustomForgotPassword override="ForgotPassword" />
-          <WrappedComponent {...this.props} />
-        </Authenticator>
+        <Provider store={store}>
+          <I18NProvider>
+            <Authenticator
+              hide={[SignIn, SignUp, Greetings, ForgotPassword]}
+              amplifyConfig={awsconfig}
+              onStateChange={this._configureJWTToken}
+              errorMessage={sessionStorage.getItem('LOGIN_ERROR')}
+            >
+              <CustomSignIn />
+              <CustomForgotPassword override="ForgotPassword" />
+              <WrappedComponent {...this.props} />
+            </Authenticator>
+          </I18NProvider>
+        </Provider>
       )
     }
   }

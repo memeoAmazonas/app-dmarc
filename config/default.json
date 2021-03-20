@@ -30,7 +30,7 @@
       "pass": ["pass", "true"],
       "neutral": ["neutral", "none", "softfail"],
       "fail": ["fail", "policy", "temperror", "permerror", "false"]
-    }, 
+    },
     "defaultDisplay": 14
   }
 }
