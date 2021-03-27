@@ -36,6 +36,7 @@ const TableDetail = ({ data, type = 'subject', intl }) => {
     styles: {
       pais: {},
       ip: {},
+      subject: { style: { textAlign: 'left' } },
       count: {},
     },
   };

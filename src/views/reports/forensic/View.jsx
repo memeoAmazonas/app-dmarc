@@ -15,20 +15,43 @@ import _ from 'lodash';
 import { Scroll } from 'common/utils/services/scroll.service';
 import { asyncActions, selectDisplay } from 'rdx/summary/actions';
 import { currentDomainSelector, domainDetailsSelector } from 'rdx/summary/selectors';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { withUserInfo } from 'common/components/Utilities/AuthProviders';
 import Container from 'common/components/FlexContainer/Container';
 import TableDetail from 'views/reports/forensic/TableDetail';
 import dataForense from 'assets/testData/forense';
+import dataApi from 'rdx/newRedux/api/dataApi';
+import GetSelector from 'rdx/newRedux/selectores/GetSelector';
+import { KEY_REPORT_DETAIL_FORENSIC } from 'rdx/newRedux/selectores/keys';
+import Action from 'rdx/newRedux/actions/Action';
+import { GET_REPORT_FORENSIC } from 'rdx/newRedux/types';
 
 const View = ({
   customerId, loadPrecalculated, domainDetails, intl, domain,
 
 }) => {
+  const dispatch = useDispatch();
+  const reports = GetSelector(KEY_REPORT_DETAIL_FORENSIC);
+  console.log(reports)
+  const dispatchByDomain = () => {
+    const payload = {
+      params: {
+        id: customerId,
+        dominio: domain,
+      },
+      ...dataApi.reportForensic,
+    }
+    dispatch(Action(GET_REPORT_FORENSIC, payload))
+  }
   React.useEffect(() => {
     if (customerId && _.isEmpty(domainDetails)) loadPrecalculated({ customerId });
     Scroll.scrollTop()
   }, [customerId]);
+  React.useEffect(() => {
+    if (customerId) {
+      dispatchByDomain();
+    }
+  }, [domain, customerId])
   const [group, setGroup] = React.useState('subject');
   const data = dataForense;
   return (
@@ -65,7 +88,7 @@ const View = ({
         </Grid>
         <Grid item md={8} xs={12}>
           <Container marginTop={64}>
-            <TableDetail data={data} type={group} intl={intl} />
+            {reports && <TableDetail data={reports} type={group} intl={intl} /> }
           </Container>
         </Grid>
       </Grid>

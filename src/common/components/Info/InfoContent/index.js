@@ -10,17 +10,12 @@ import { FormatNumberESService } from 'common/utils/services/formatNumberES.serv
 
 const Wrapper = styled.div`
   display: flex;
-  text-align: center;
   align-items: flex-end;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-  padding: 15px;
+
 `;
 
 const Label = styled.header`
-  margin-bottom: 10px;
-  max-width: 100px;
+  max-width: 40%;
 `;
 
 const InfoContent = ({
@@ -30,28 +25,29 @@ const InfoContent = ({
     <React.Fragment>
       {
         ready ? (
-          <Wrapper>
+          <div>
             {
               data.map((dataVal, idx) => (
-                <div key={uniqueId(`info-${dataVal}-`)}>
+                <Wrapper key={uniqueId(`info-${dataVal}-`)}>
                   <Label>
-                    <Font variant="body2" component="h3">
+                    <Font style={{ fontSize: 16, background: '#3E97E8', paddingLeft: 10, color: '#fff', opacity: 0.8, }}>
                       {labels[idx]}
                     </Font>
                   </Label>
-                  <Font variant="h3" component="div" style={{margin: 10}}>
+                  <Font variant="h3" component="div" style={{ margin: 10 }}>
                     <b>{setFormat ? dataVal : FormatNumberESService.formatNumber(intl, dataVal)}</b>
                   </Font>
-                </div>
+                </Wrapper>
               ))
             }
-          </Wrapper>
+          </div>
         ) : (
           <Skeleton variant="rect" height={85} width="100%" />
         )
       }
     </React.Fragment>
   )
+  // background: '#3E97E8', padding: 6, fontWeight: 'bold', opacity: '0.8',
 }
 
 export default injectIntl(InfoContent);

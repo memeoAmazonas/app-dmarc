@@ -8,7 +8,7 @@ import InfoHeader from './InfoHeader';
 
 
 const Info = ({
-  data, padding = '15px', header = '', labels = [], setFormat = true,
+  data, padding = '0 0 15px 0', header = '', labels = [], setFormat = true,
 
 }) => {
   return (
