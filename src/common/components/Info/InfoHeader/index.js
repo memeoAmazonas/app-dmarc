@@ -8,7 +8,6 @@ const Header = styled.header`
   text-align: left;
   padding-bottom: 0 !important;
   min-height: 35px;
-  margin-bottom: 10px;
   color: #FFF;
 `;
 

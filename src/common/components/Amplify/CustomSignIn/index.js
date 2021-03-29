@@ -64,7 +64,7 @@ class CustomSignIn extends SignIn {
     try {
       const user = await Auth.signIn(username, password);
     } catch (e) {
-      console.log('e.message', e.message);
+      //console.log('e.message', e.message);
     }
   }
 

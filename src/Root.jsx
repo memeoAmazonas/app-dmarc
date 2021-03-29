@@ -82,7 +82,6 @@ const withAuth = (WrappedComponent) => {
               hide={[SignIn, SignUp, Greetings, ForgotPassword]}
               amplifyConfig={awsconfig}
               onStateChange={this._configureJWTToken}
-              errorMessage={sessionStorage.getItem('LOGIN_ERROR')}
             >
               <CustomSignIn />
               <CustomForgotPassword override="ForgotPassword" />

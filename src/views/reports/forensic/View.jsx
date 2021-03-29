@@ -22,9 +22,10 @@ import TableDetail from 'views/reports/forensic/TableDetail';
 import dataForense from 'assets/testData/forense';
 import dataApi from 'rdx/newRedux/api/dataApi';
 import GetSelector from 'rdx/newRedux/selectores/GetSelector';
-import { KEY_REPORT_DETAIL_FORENSIC } from 'rdx/newRedux/selectores/keys';
+import { KEY_REPORT_DETAIL_FORENSIC, KEY_REPORT_LOADING_FORENSIC } from 'rdx/newRedux/selectores/keys';
 import Action from 'rdx/newRedux/actions/Action';
 import { GET_REPORT_FORENSIC } from 'rdx/newRedux/types';
+import SkeletoLoading from 'views/reports/SkeletoLoading';
 
 const View = ({
   customerId, loadPrecalculated, domainDetails, intl, domain,
@@ -32,7 +33,7 @@ const View = ({
 }) => {
   const dispatch = useDispatch();
   const reports = GetSelector(KEY_REPORT_DETAIL_FORENSIC);
-  console.log(reports)
+  const loading = GetSelector(KEY_REPORT_LOADING_FORENSIC);
   const dispatchByDomain = () => {
     const payload = {
       params: {
@@ -87,9 +88,13 @@ const View = ({
           </Grid>
         </Grid>
         <Grid item md={8} xs={12}>
+          {loading === false
+          && (
           <Container marginTop={64}>
             {reports && <TableDetail data={reports} type={group} intl={intl} /> }
           </Container>
+          )}
+          {(loading === true || loading === undefined) && <SkeletoLoading />}
         </Grid>
       </Grid>
     </Layout>
