@@ -7,6 +7,7 @@
   "menu.reports": "Reports",
   "menu.reports.360": "Report360",
   "menu.reports.forensic": "Forensic",
+  "menu.reports.histogram": "Histograms",
   "menu.change": "Change",
   "menu.cancel": "Cancel",
   "password.current": "Current Password",

@@ -7,33 +7,23 @@ import { theme } from 'src/theme';
 import { FormattedMessage } from 'react-intl';
 import Separator from 'common/components/Separator';
 import FilterToggle from 'views/riskmatrix/FilterToggle';
-import RadioButtonList from 'common/components/RadioButtonList/RadioButtonList';
-import { RADIO_ITEMS_REPORT_FORENSIC } from 'common/constants/radioButtonItems';
 import { RangeSelector } from 'common/components/RangeSelector';
 import Domains from 'views/riskmatrix/Domains';
-import _ from 'lodash';
-import { Scroll } from 'common/utils/services/scroll.service';
 import { asyncActions, selectDisplay } from 'rdx/summary/actions';
 import { currentDomainSelector, domainDetailsSelector } from 'rdx/summary/selectors';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { withUserInfo } from 'common/components/Utilities/AuthProviders';
 import Container from 'common/components/FlexContainer/Container';
-import TableDetail from 'views/reports/forensic/TableDetail';
-import dataApi from 'rdx/newRedux/api/dataApi';
-import GetSelector from 'rdx/newRedux/selectores/GetSelector';
-import { KEY_REPORT_DETAIL_FORENSIC, KEY_REPORT_LOADING_FORENSIC } from 'rdx/newRedux/selectores/keys';
-import Action from 'rdx/newRedux/actions/Action';
-import { GET_REPORT_FORENSIC } from 'rdx/newRedux/types';
 import SkeletoLoading from 'views/reports/SkeletoLoading';
+import Details from 'views/reports/histogram/Details';
+import { Scroll } from 'common/utils/services/scroll.service';
 
 const View = ({
   customerId, loadPrecalculated, domainDetails, intl, domain,
 
 }) => {
-  const dispatch = useDispatch();
-  const reports = GetSelector(KEY_REPORT_DETAIL_FORENSIC);
-  const loading = GetSelector(KEY_REPORT_LOADING_FORENSIC);
-  const dispatchByDomain = () => {
+  const loading = false;
+  /*  const dispatchByDomain = () => {
     const payload = {
       params: {
         id: customerId,
@@ -51,14 +41,23 @@ const View = ({
     if (customerId) {
       dispatchByDomain();
     }
-  }, [domain, customerId])
-  const [group, setGroup] = React.useState('subject');
+  }, [domain, customerId]) */
+  React.useEffect(() => {
+    if (customerId && _.isEmpty(domainDetails)) loadPrecalculated({ customerId });
+    Scroll.scrollTop()
+  }, [customerId]);
+  /*  React.useEffect(() => {
+    if (customerId) {
+      dispatchByDomain();
+    }
+  }, [domain, customerId]) */
+
   return (
     <Layout>
       <Grid container spacing={3}>
         <Grid item md={3} xs={12}>
           <Font variant="h1" component="span" style={{ fontSize: 40, color: theme.colors.blue1 }}>
-            <b><FormattedMessage id="menu.reports.forensic" /></b>
+            <b><FormattedMessage id="menu.reports.histogram" /></b>
           </Font>
           <Separator />
           <Grid container spacing={1}>
@@ -67,30 +66,22 @@ const View = ({
               showLink
               onClick={() => {
               }}
-              onReset={() => setGroup('0')}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <RadioButtonList
-              title="radio.button.group.by"
-              details={RADIO_ITEMS_REPORT_FORENSIC}
-              onSelected={(e) => setGroup(e.target.value)}
-              selected={group}
+              onReset={() => null}
             />
           </Grid>
           <Grid item xs={12}>
             <RangeSelector />
           </Grid>
           <Grid item xs={12}>
-            <Domains type="report-forensic" />
+            <Domains type="histogram" />
           </Grid>
         </Grid>
         <Grid item md={8} xs={12}>
           {loading === false
           && (
-          <Container marginTop={64}>
-            {reports && <TableDetail data={reports} type={group} intl={intl} /> }
-          </Container>
+            <Container marginTop={64}>
+              <Details />
+            </Container>
           )}
           {(loading === true || loading === undefined) && <SkeletoLoading />}
         </Grid>
