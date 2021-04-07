@@ -19,7 +19,6 @@ import { connect, useDispatch } from 'react-redux';
 import { withUserInfo } from 'common/components/Utilities/AuthProviders';
 import Container from 'common/components/FlexContainer/Container';
 import TableDetail from 'views/reports/forensic/TableDetail';
-import dataForense from 'assets/testData/forense';
 import dataApi from 'rdx/newRedux/api/dataApi';
 import GetSelector from 'rdx/newRedux/selectores/GetSelector';
 import { KEY_REPORT_DETAIL_FORENSIC, KEY_REPORT_LOADING_FORENSIC } from 'rdx/newRedux/selectores/keys';
@@ -54,7 +53,6 @@ const View = ({
     }
   }, [domain, customerId])
   const [group, setGroup] = React.useState('subject');
-  const data = dataForense;
   return (
     <Layout>
       <Grid container spacing={3}>
