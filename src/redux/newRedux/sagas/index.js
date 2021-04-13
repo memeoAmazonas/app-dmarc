@@ -1,4 +1,4 @@
-import { put, call, } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 import apiCall from 'rdx/newRedux/api/api';
 
 export function* callToApi(response) {
@@ -21,4 +21,3 @@ export function* callToApi(response) {
     });
   }
 }
-
