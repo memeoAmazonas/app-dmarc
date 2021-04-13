@@ -1,6 +1,7 @@
 import React from 'react';
 import Histogram from 'common/components/Histogram/Histogram';
 import GetSizeWindowSize from 'common/utils/SizeWindows';
+import ScrollDrag from 'common/components/Scroll/ScrollDrag';
 
 const Details = (props) => {
   const size = GetSizeWindowSize();
@@ -26,12 +27,31 @@ const Details = (props) => {
     }
     return response;
   }
+  const difference = (scrollX, clientX) => ((clientX + scrollX) - clientX) > 50
+  const calculate = (info) => {
+    const { scrollX, clientX } = info;
+    console.log(info);
+    if (scrollX > 0 && init > 0 && difference(scrollX * -1, clientX)) {
+      setInit(init - 7)
+    }
+    if (scrollX <= 0 && init <= 90) {
+      setInit(init + 7)
+    }
+  }
   return (
     <div>
       {size.width}
-      <button onClick={() => onClick(0)}>restar</button>
-      <button onClick={() => onClick(1)}>sumar</button>
-      <Histogram style={{ width: '100%', height: 400, maxWidth: 1280 }} data={data} />
+      <ScrollDrag
+        onMove={(info) => calculate(info)}
+      >
+        <Histogram
+          style={{
+            width: '100%', height: 400, maxWidth: 1280, cursor: ' move',
+          }}
+          data={data().slice(init, init + 7)}
+        />
+      </ScrollDrag>
+
     </div>
   );
 }
