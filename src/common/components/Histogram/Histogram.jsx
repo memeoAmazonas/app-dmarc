@@ -4,26 +4,14 @@ import { Chart } from 'react-google-charts';
 import SkeletoLoading from 'common/components/Skeleton/SkeletoLoading';
 
 const Histogram = ({
-  data, width, height, style, init = 0, final = 14,
+  data, width, height, style,
 }) => {
-  const maxs = 200000000;
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-  const data1 = () => {
-    const response = [];
-    // eslint-disable-next-line no-plusplus
-    for (let i = 1; i < 90; i++) {
-      response.push([i.toString(), getRandomInt(0, maxs), getRandomInt(0, maxs)])
-    }
-    return response;
-  }
   return (
     <Chart
       style={style}
       chartType="LineChart"
       loader={<SkeletoLoading />}
-      data={concat(['Year', 'Sales', 'Expenses'],data1().slice(init, final))}
+      data={concat(['Year', 'Sales', 'Expenses'], data)}
       options={{
         title: 'Company Performance',
         hAxis: { title: 'Year', titleTextStyle: { color: '#333fff' } },
