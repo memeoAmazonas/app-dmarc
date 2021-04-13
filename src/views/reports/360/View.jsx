@@ -27,7 +27,7 @@ import Action from 'rdx/newRedux/actions/Action';
 import { DATE_REPORT_FILTER, GET_REPORT } from 'rdx/newRedux/types';
 import dataApi from 'rdx/newRedux/api/dataApi';
 import Container from 'common/components/FlexContainer/Container';
-import SkeletoLoading from 'views/reports/SkeletoLoading';
+import SkeletoLoading from 'common/components/Skeleton/SkeletoLoading';
 import AsyncAction from 'rdx/newRedux/actions/AsyncAction';
 import { parserRegister } from 'rdx/newRedux/parser/reports';
 import Font from 'common/components/Font';

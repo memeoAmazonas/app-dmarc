@@ -14,7 +14,7 @@ import { currentDomainSelector, domainDetailsSelector } from 'rdx/summary/select
 import { connect } from 'react-redux';
 import { withUserInfo } from 'common/components/Utilities/AuthProviders';
 import Container from 'common/components/FlexContainer/Container';
-import SkeletoLoading from 'views/reports/SkeletoLoading';
+import SkeletoLoading from 'common/components/Skeleton/SkeletoLoading';
 import Details from 'views/reports/histogram/Details';
 import { Scroll } from 'common/utils/services/scroll.service';
 

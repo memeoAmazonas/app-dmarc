@@ -24,7 +24,7 @@ import GetSelector from 'rdx/newRedux/selectores/GetSelector';
 import { KEY_REPORT_DETAIL_FORENSIC, KEY_REPORT_LOADING_FORENSIC } from 'rdx/newRedux/selectores/keys';
 import Action from 'rdx/newRedux/actions/Action';
 import { GET_REPORT_FORENSIC } from 'rdx/newRedux/types';
-import SkeletoLoading from 'views/reports/SkeletoLoading';
+import SkeletoLoading from 'common/components/Skeleton/SkeletoLoading';
 
 const View = ({
   customerId, loadPrecalculated, domainDetails, intl, domain,
