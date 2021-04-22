@@ -1,5 +1,5 @@
 import { takeLatest } from 'redux-saga/effects';
-import { GET_REPORT, GET_REPORT_FORENSIC } from 'rdx/newRedux/types';
+import { GET_HISTOGRAM, GET_REPORT, GET_REPORT_FORENSIC } from 'rdx/newRedux/types';
 import { callToApi } from 'rdx/newRedux/sagas';
 
 export function* getReports() {
@@ -8,4 +8,7 @@ export function* getReports() {
 
 export function* getForensic() {
   yield takeLatest(GET_REPORT_FORENSIC, callToApi)
+}
+export function* getHistogram() {
+  yield takeLatest(GET_HISTOGRAM, callToApi);
 }

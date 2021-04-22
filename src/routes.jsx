@@ -5,6 +5,7 @@ import Dasboard from 'views/dashboard';
 import RiskMatrix from 'views/riskmatrix';
 import Report360 from 'views/reports/360';
 import ReportForensic from 'views/reports/forensic';
+import Histogram from 'views/reports/histogram'
 
 module.exports = (
   <div>
@@ -15,6 +16,7 @@ module.exports = (
         <Route exact path="/riskmatrix" component={RiskMatrix} />
         <Route exact path="/report-360" component={Report360} />
         <Route exact path="/report-forensic" component={ReportForensic} />
+        <Route exact path="/histogram" component={Histogram} />
         <Route path="*" component={Dasboard} />
       </Switch>
     </div>

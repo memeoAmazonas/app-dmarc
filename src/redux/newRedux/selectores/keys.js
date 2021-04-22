@@ -9,5 +9,7 @@ export const KEY_DATE_REPORT_FILTER = 'report360.filters';
 
 export const KEY_REPORT_LOADING_FORENSIC = 'forensic.reportLoading';
 export const KEY_REPORT_DETAIL_FORENSIC = 'forensic.reportDetail';
-export const KEY_REPORT_ERROR_FORENSIC = 'forensic.reportError';
 export const KEY_DATE_REPORT_FILTER_FORENSIC = 'forensic.filters';
+
+export const KEY_REPORT_LOADING_HISTOGRAM = 'histogram.reportLoading';
+export const KEY_REPORT_DETAIL_HISTOGRAM = 'histogram.reportDetail';

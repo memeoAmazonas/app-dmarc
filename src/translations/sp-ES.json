@@ -7,6 +7,7 @@
   "menu.reports": "Reportes",
   "menu.reports.360": "Reporte360",
   "menu.reports.forensic": "Forense",
+  "menu.reports.histogram": "Histogramas",
   "menu.change": "Cambiar",
   "menu.cancel": "Cancelar",
   "password.current": "Contraseña Actual",
@@ -97,5 +98,12 @@
   "login.username": "Nombre de usuario",
   "password": "Contraseña",
   "password.forgot": "Olvido su contraseña?",
-  "password.reset": "Restablecer contraseña"
+  "password.reset": "Restablecer contraseña",
+  "histogram.dmarc": "DMARC Aprobados",
+  "histogram.move.left": "Ver más valores a la izquierda",
+  "histogram.move.right": "Ver más valores a la derecha",
+  "7": "7",
+  "15": "15",
+  "30": "30",
+  "histogram.values": "Ver por grafico"
 }

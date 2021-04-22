@@ -20,6 +20,12 @@ const dataApi = {
     success: TYPE.GET_REPORT_SUCCESS_FORENSIC,
     error: TYPE.GET_REPORT_ERROR_FORENSIC,
   },
+  reportHistogram: {
+    url: URL.REPORT_HISTOGRAM_URL,
+    method: 'GET',
+    success: TYPE.GET_HISTOGRAM_SUCCESS,
+    error: TYPE.GET_HISTOGRAM_ERROR,
+  },
 }
 
 export default dataApi;
