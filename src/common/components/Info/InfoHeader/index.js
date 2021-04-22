@@ -8,7 +8,7 @@ const Header = styled.header`
   text-align: left;
   padding-bottom: 0 !important;
   min-height: 35px;
-  margin-bottom: 10px;
+  color: #FFF;
 `;
 
 const InfoHeader = ({ ready, header }) => {
@@ -17,7 +17,13 @@ const InfoHeader = ({ ready, header }) => {
       {
         ready ? (
           <Header>
-            <Font variant="h5" component="h2">
+            <Font
+              variant="h4"
+              component="h2"
+              style={{
+                background: '#3E97E8', padding: 6, fontWeight: 'bold',
+              }}
+            >
               {header}
             </Font>
           </Header>

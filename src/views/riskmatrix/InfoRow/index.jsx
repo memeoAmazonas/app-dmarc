@@ -18,6 +18,7 @@ const InfoRow = ({
             intl.formatMessage({ id: 'dashboard.summary.messagesTotal' })
           }
           data={[totalMessages]}
+          setFormat={false}
         />
       </Grid>
       <Grid item xs={12} md={3}>

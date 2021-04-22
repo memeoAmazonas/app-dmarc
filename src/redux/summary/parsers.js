@@ -105,6 +105,5 @@ export const parsePrecalculatedResponse = (response) => {
       }
     });
   }
-
   return result;
 };

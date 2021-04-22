@@ -5,14 +5,15 @@ import records from './records/reducers';
 import dialogs from './dialogs/reducers';
 import summary from './summary/reducers';
 import user from './user/reducers';
-import reports from './newRedux/reducer/reports';
+import { report360, forensic } from './newRedux/reducer/reports';
 
 export const appReducers = combineReducers({
   records,
   dialogs,
   summary,
   user,
-  reports,
+  report360,
+  forensic,
 });
 
 /*
