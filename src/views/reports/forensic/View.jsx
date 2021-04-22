@@ -53,6 +53,7 @@ const View = ({
     }
   }, [domain, customerId])
   const [group, setGroup] = React.useState('subject');
+
   return (
     <Layout>
       <Grid container spacing={3}>

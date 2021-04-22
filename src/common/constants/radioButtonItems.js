@@ -22,3 +22,18 @@ export const RADIO_ITEMS_REPORT_FORENSIC = [
     label: 'table.country',
   },
 ];
+
+export const RADIO_SELECTED_RANGE = [
+  {
+    value: '7',
+    label: '7',
+  },
+  {
+    value: '15',
+    label: '15',
+  },
+  {
+    value: '30',
+    label: '30',
+  },
+]

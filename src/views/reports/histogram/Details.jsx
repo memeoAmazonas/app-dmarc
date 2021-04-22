@@ -1,57 +1,126 @@
 import React from 'react';
 import Histogram from 'common/components/Histogram/Histogram';
-import GetSizeWindowSize from 'common/utils/SizeWindows';
-import ScrollDrag from 'common/components/Scroll/ScrollDrag';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Tooltip from '@material-ui/core/Tooltip';
+import Font from 'common/components/Font';
+import { theme } from 'src/theme';
+import { FormattedMessage } from 'react-intl';
 
-const Details = (props) => {
-  const size = GetSizeWindowSize();
+const useStyles = makeStyles(() => ({
+  button: {
+    height: 30,
+  },
+  content: {
+    marginBottom: 100,
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 4,
+    boxShadow: '0px 4px 10px -2px rgb(0 0 0 / 6%), 0px 4px 10px -2px rgb(0 0 0 / 6%), 0px 4px 10px -2px rgb(0 0 0 / 6%)',
+  },
+}));
+const Details = ({
+  intl, details, label, range,
+}) => {
   const [init, setInit] = React.useState(0);
-  const onClick = (t) => {
-    if (t === 0) {
-      if (init !== 0) {
-        setInit(init - 7)
-      }
-    } else {
-      setInit(init + 7)
-    }
-  }
-  const maxs = 200000000;
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-  const data = () => {
-    const response = [];
-    // eslint-disable-next-line no-plusplus
-    for (let i = 1; i < 90; i++) {
-      response.push([i.toString(), getRandomInt(0, maxs), getRandomInt(0, maxs)])
-    }
-    return response;
-  }
-  const difference = (scrollX, clientX) => ((clientX + scrollX) - clientX) > 50
-  const calculate = (info) => {
-    const { scrollX, clientX } = info;
-    console.log(info);
-    if (scrollX > 0 && init > 0 && difference(scrollX * -1, clientX)) {
-      setInit(init - 7)
-    }
-    if (scrollX <= 0 && init <= 90) {
-      setInit(init + 7)
-    }
-  }
-  return (
-    <div>
-      {size.width}
-      <ScrollDrag
-        onMove={(info) => calculate(info)}
-      >
-        <Histogram
-          style={{
-            width: '100%', height: 400, maxWidth: 1280, cursor: ' move',
-          }}
-          data={data().slice(init, init + 7)}
-        />
-      </ScrollDrag>
+  const [end, setEnd] = React.useState(0);
+  const clasess = useStyles();
 
+  const size = details.length;
+  const moveLeft = () => {
+    if ((init - range) >= 0) {
+      setInit(init - range);
+      setEnd(end - range);
+    } else {
+      setInit(0);
+      setEnd(range)
+    }
+  }
+  const moveRight = () => {
+    if (size >= (end + range)) {
+      setInit(init + range);
+      setEnd(end + range)
+    } else {
+      setEnd(size)
+      setInit(size - range);
+    }
+  }
+  React.useEffect(() => {
+    setInit(0);
+    setEnd(range);
+  }, [range]);
+  return (
+    <div className={clasess.content}>
+      <Tooltip
+        title={(
+          <React.Fragment>
+            <div className={clasess.popper}>
+              <Font
+                variant="h1"
+                component="span"
+                style={{
+                  fontSize: 16,
+                  color: theme.colors.grey5,
+                }}
+              >
+                <b><FormattedMessage id="histogram.move.left" /></b>
+              </Font>
+            </div>
+          </React.Fragment>
+        )
+        }
+        placement="top"
+      >
+        <IconButton
+          className={clasess.button}
+          color={init > 0 ? 'primary' : 'secondary'}
+          aria-label="move-left"
+          component="span"
+          disabled={!(init > 0)}
+          onClick={moveLeft}
+        >
+          <ArrowBackIosIcon />
+        </IconButton>
+      </Tooltip>
+      <Histogram
+        intl={intl}
+        data={details.slice(init, end)}
+        label={label}
+      />
+      <Tooltip
+        title={(
+          <React.Fragment>
+            <div className={clasess.popper}>
+              <Font
+                variant="h1"
+                component="span"
+                style={{
+                  fontSize: 16,
+                  color: theme.colors.grey5,
+                }}
+              >
+                <b><FormattedMessage id="histogram.move.right" /></b>
+              </Font>
+            </div>
+          </React.Fragment>
+        )
+        }
+        placement="top"
+      >
+        <IconButton
+          color="primary"
+          className={clasess.button}
+          aria-label="move-right"
+          component="span"
+          disabled={!(details.length > end)}
+          onClick={moveRight}
+        >
+          <ArrowForwardIosIcon />
+        </IconButton>
+      </Tooltip>
     </div>
   );
 }

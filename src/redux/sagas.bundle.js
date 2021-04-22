@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects';
-import { getReports, getForensic } from 'rdx/newRedux/sagas/reports';
+import { getReports, getForensic, getHistogram } from 'rdx/newRedux/sagas/reports';
 import { recordSagas } from './records/sagas';
 import { summarySagas } from './summary/sagas';
 
@@ -9,5 +9,6 @@ export default function* sagas() {
     ...summarySagas,
     getReports(),
     getForensic(),
+    getHistogram(),
   ]);
 }

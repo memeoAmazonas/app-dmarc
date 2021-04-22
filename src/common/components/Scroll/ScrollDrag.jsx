@@ -24,13 +24,16 @@ const ScrollDrag = ({ children = null, onMove = null }) => {
 
   const onMouseMove = (e) => {
     const { clientX, scrollX } = info;
-    onMove(info);
+    if (onMove) {
+      onMove(info);
+    }
     if (info.isScrolling) {
       ref.current.scrollLeft = scrollX + e.clientX - clientX;
       setInfo({ ...info, scrollX: scrollX + e.clientX - clientX, clientX: e.clientX });
     }
   };
   return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       ref={ref}
       onMouseDown={onMouseDown}

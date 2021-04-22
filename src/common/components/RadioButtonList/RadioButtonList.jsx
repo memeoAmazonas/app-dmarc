@@ -6,7 +6,6 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 
-
 const RadioButtonList = ({
   title = 'empty', values = {}, selected, onSelected = () => null, details = [],
 }) => {
@@ -16,6 +15,7 @@ const RadioButtonList = ({
       key={item.label}
       label={<FormattedMessage id={item.label} />}
       value={item.value}
+      disabled={item.disabled}
     />
   ));
   return (
