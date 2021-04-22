@@ -15,11 +15,11 @@ import { asyncActions, selectDisplay } from 'rdx/summary/actions';
 import { withUserInfo } from 'common/components/Utilities/AuthProviders';
 import TabPanel from 'common/components/TabPanel';
 import { LABEL_REPORT_TABS } from 'common/constants/tabsTitles';
-import TableDetail from 'views/report/TableDetail';
+import TableDetail from 'views/reports/360/TableDetail';
 import GetSelector from 'rdx/newRedux/selectores/GetSelector';
 import {
   KEY_DATE_REPORT_FILTER,
-  KEY_DISPLAY_SELECTED,
+  KEY_DISPLAY_SELECTED, KEY_LANGUAGE,
   KEY_REPORT_DETAIL,
   KEY_REPORT_LOADING,
 } from 'rdx/newRedux/selectores/keys';
@@ -27,8 +27,7 @@ import Action from 'rdx/newRedux/actions/Action';
 import { DATE_REPORT_FILTER, GET_REPORT } from 'rdx/newRedux/types';
 import dataApi from 'rdx/newRedux/api/dataApi';
 import Container from 'common/components/FlexContainer/Container';
-import SkeletoLoading from 'views/report/SkeletoLoading';
-import Date from 'common/components/Date/Date';
+import SkeletoLoading from 'common/components/Skeleton/SkeletoLoading';
 import AsyncAction from 'rdx/newRedux/actions/AsyncAction';
 import { parserRegister } from 'rdx/newRedux/parser/reports';
 import Font from 'common/components/Font';
@@ -36,7 +35,7 @@ import { FormattedMessage } from 'react-intl';
 import Separator from 'common/components/Separator';
 import { theme } from 'src/theme';
 import RadioButtonList from 'common/components/RadioButtonList/RadioButtonList';
-import { RADIO_ITEMS_REPORT } from 'common/constants/radioButtonItems';
+import { RADIO_ITEMS_REPORT_360 } from 'common/constants/radioButtonItems';
 
 const View = ({
   customerId, loadPrecalculated, domainDetails, intl, domain, setDisplay,
@@ -49,7 +48,7 @@ const View = ({
   const loading = GetSelector(KEY_REPORT_LOADING);
   const selected = GetSelector(KEY_DISPLAY_SELECTED);
   const dates = GetSelector(KEY_DATE_REPORT_FILTER);
-
+  const actualLanguage = GetSelector(KEY_LANGUAGE);
   const setDispatchByDomain = () => {
     setByDate(false);
     dispatch(AsyncAction(DATE_REPORT_FILTER, { init: null, end: null }));
@@ -130,7 +129,7 @@ const View = ({
       <Grid container spacing={3}>
         <Grid item md={3} xs={12}>
           <Font variant="h1" component="span" style={{ fontSize: 40, color: theme.colors.blue1 }}>
-            <b><FormattedMessage id="menu.report360" /></b>
+            <b><FormattedMessage id="menu.reports.360" /></b>
           </Font>
           <Separator />
           <Grid container spacing={1}>
@@ -138,15 +137,14 @@ const View = ({
               <FilterToggle
                 ready
                 showLink
-                onClick={() => {
-                }}
+                onClick={() => {}}
                 onReset={onReset}
               />
             </Grid>
             <Grid item xs={12}>
               <RadioButtonList
                 title="radio.button.group.by"
-                details={RADIO_ITEMS_REPORT}
+                details={RADIO_ITEMS_REPORT_360}
                 onSelected={(e) => setGroup(e.target.value)}
                 selected={group}
               />
@@ -157,9 +155,9 @@ const View = ({
             <Grid item xs={12}>
               <Domains type="report-360" />
             </Grid>
-            <Grid item xs={12}>
+            {/*<Grid item xs={12}>
               <Date onSearch={(a, b) => onGetByDate(a, b)} />
-            </Grid>
+            </Grid>*/}
 
           </Grid>
         </Grid>

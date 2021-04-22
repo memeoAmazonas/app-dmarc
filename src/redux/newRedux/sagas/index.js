@@ -1,8 +1,7 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 import apiCall from 'rdx/newRedux/api/api';
-import { GET_REPORT } from 'rdx/newRedux/types';
 
-function* callToApi(response) {
+export function* callToApi(response) {
   const { payload } = response;
   const {
     url, method, success, error,
@@ -21,7 +20,4 @@ function* callToApi(response) {
       payload: err,
     });
   }
-}
-export function* getReports() {
-  yield takeLatest(GET_REPORT, callToApi);
 }

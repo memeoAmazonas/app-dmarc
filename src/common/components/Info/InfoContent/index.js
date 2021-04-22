@@ -10,45 +10,44 @@ import { FormatNumberESService } from 'common/utils/services/formatNumberES.serv
 
 const Wrapper = styled.div`
   display: flex;
-  text-align: center;
-  align-items: flex-end;
-  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1px;
+  border-bottom: 1px solid #3E97E8;
 `;
 
-const Label = styled.header`
-  margin-bottom: 10px;
-  max-width: 100px;
+const Label = styled.div`
+  width: 40%;
+  padding: 5px 0;
+  margin-right: 5px;
+
 `;
 
 const InfoContent = ({
   ready, labels, data, intl, setFormat = true,
 }) => {
+  const content = ready
+    ? data.map((dataVal, idx) => (
+      <Wrapper key={uniqueId(`info-${dataVal}-`)}>
+        <Label>
+          <Font style={{
+            fontSize: 16, paddingLeft: 10,
+          }}
+          >
+            {labels[idx]}
+          </Font>
+        </Label>
+        <Font component="div" style={{ padding: '5px 0', marginLeft: 20, flexGrow: 1 }}>
+          <b>{setFormat ? dataVal : FormatNumberESService.formatNumber(intl, dataVal)}</b>
+        </Font>
+      </Wrapper>
+    ))
+    : <Skeleton variant="rect" height={85} width="100%" />
   return (
     <React.Fragment>
-      {
-        ready ? (
-          <Wrapper>
-            {
-              data.map((dataVal, idx) => (
-                <div key={uniqueId(`info-${dataVal}-`)}>
-                  <Label>
-                    <Font variant="body2" component="h3">
-                      {labels[idx]}
-                    </Font>
-                  </Label>
-                  <Font variant="h3" component="div">
-                    <b>{setFormat ? dataVal : FormatNumberESService.formatNumber(intl, dataVal)}</b>
-                  </Font>
-                </div>
-              ))
-            }
-          </Wrapper>
-        ) : (
-          <Skeleton variant="rect" height={85} width="100%" />
-        )
-      }
+      {content}
     </React.Fragment>
   )
+  // background: '#3E97E8', padding: 6, fontWeight: 'bold', opacity: '0.8',
 }
 
 export default injectIntl(InfoContent);

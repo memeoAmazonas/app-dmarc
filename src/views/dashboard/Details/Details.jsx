@@ -30,7 +30,7 @@ const Details = ({ details }) => {
         ) : (
           <React.Fragment>
             <DetailsHeader />
-            <Table striped>
+            <Table>
               <DetailsTableHead />
               <DetailsTableBody details={details} />
             </Table>

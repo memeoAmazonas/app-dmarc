@@ -45,9 +45,9 @@ const MatrixDashboard = ({
             <Grid item xs={12}>
               <Domains />
             </Grid>
-            <Grid item xs={12}>
+{/*            <Grid item xs={12}>
               <Dates />
-            </Grid>
+            </Grid>*/}
           </Grid>
         </Grid>
         <Grid item md={9} xs={12}>

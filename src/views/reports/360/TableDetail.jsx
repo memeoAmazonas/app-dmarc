@@ -40,7 +40,7 @@ const TableDetail = ({ details, intl }) => {
     },
   };
 
-  // TODO cuando se necesite reverseDNS solo se debe enviar la funcion sin el pick 
+  // TODO cuando se necesite reverseDNS solo se debe enviar la funcion sin el pick
   const data = ((orderBy(details, [orderByKey], [asc]))).map((item) => pick(item, ['pais', 'ip', 'cont']));
 
   const onOrderBy = (key) => {
@@ -55,12 +55,10 @@ const TableDetail = ({ details, intl }) => {
   }
   const _keys = keys(data[0]);
 
-  
+
   const titles = [];
   LABEL_REPORT_TABLE.forEach((item) => {
-    if (_keys.includes(item.key)) {
-      titles.push(item);
-    }
+    if (_keys.includes(item.key)) titles.push(item);
   })
 
   return (

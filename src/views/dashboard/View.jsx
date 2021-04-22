@@ -95,7 +95,9 @@ const Dashboard = ({
           />
         </Grid>
         <Separator />
+
         <Summary summary={total} amount={Object.keys(domains || {}).length} />
+
         <Separator />
         <Grid container>
           <Grid item md={12} xs={12}>
