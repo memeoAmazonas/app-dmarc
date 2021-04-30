@@ -9,7 +9,7 @@ import { FormattedMessage } from 'react-intl'
 import Skeleton from '@material-ui/lab/Skeleton';
 
 import { Scroll } from 'common/utils/services/scroll.service'
-import { selectDomain, selectDisplay } from 'rdx/summary/actions'
+import { selectDisplay, selectDomain } from 'rdx/summary/actions'
 import { resetRecords } from 'rdx/records/actions';
 import { currentDomainSelector, domainsSelector } from 'rdx/summary/selectors';
 import Font from 'common/components/Font';
@@ -24,7 +24,8 @@ const Domains = ({
   const locationRegex = location.search.match(/domain=([^&]*)/);
   const domainNames = Object.keys(domains)
   const selectedDomain = domain || domainNames[0]
-
+  console.log('domains', domains);
+  console.log('domain', domain);
   const handleDomainChange = (event) => {
     setDomain(event.target.value)
     resetRecordState();

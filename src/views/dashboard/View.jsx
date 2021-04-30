@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import _ from 'lodash';
+import { isEmpty, get } from 'lodash';
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import styled from 'styled-components'
@@ -27,7 +27,6 @@ const Dashboard = ({
   customerId, domains, total, intl, loadPrecalculated,
 }) => {
   const format = intl.formatMessage;
-
   useEffect(() => {
     if (customerId) {
       loadPrecalculated({ customerId });
@@ -35,7 +34,7 @@ const Dashboard = ({
     Scroll.scrollTop()
   }, [customerId]);
   const getPercentage = (state, status) => {
-    if (!_.isEmpty(total)) {
+    if (!isEmpty(total)) {
       return intl.formatNumber(total.getPercentage(state, status), { style: 'percent', maximumFractionDigits: 2 });
     }
     return '';
@@ -54,8 +53,8 @@ const Dashboard = ({
           <Chart
             variant="doughnut"
             data={[
-              _.get(total.authorized, 'pass', 0),
-              _.get(total.authorized, 'fail', 0),
+              get(total.authorized, 'pass', 0),
+              get(total.authorized, 'fail', 0),
             ]}
             extraLabel={getPercentage('authorized', 'pass')}
             labels={[
@@ -69,8 +68,8 @@ const Dashboard = ({
           <Chart
             variant="doughnut"
             data={[
-              _.get(total.authenticated, 'pass', 0),
-              _.get(total.authenticated, 'fail', 0),
+              get(total.authenticated, 'pass', 0),
+              get(total.authenticated, 'fail', 0),
             ]}
             extraLabel={getPercentage('authenticated', 'pass')}
             labels={[
@@ -84,8 +83,8 @@ const Dashboard = ({
           <Chart
             variant="horizontal"
             data={[
-              _.get(total.dmarc, 'pass'),
-              _.get(total.dmarc, 'fail'),
+              get(total.dmarc, 'pass'),
+              get(total.dmarc, 'fail'),
             ]}
             labels={[
               format({ id: 'dashboard.charts.pass' }),

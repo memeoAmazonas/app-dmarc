@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1px;
-  border-bottom: 1px solid #3E97E8;
+
 `;
 
 const Label = styled.div`
@@ -25,9 +25,16 @@ const Label = styled.div`
 const InfoContent = ({
   ready, labels, data, intl, setFormat = true,
 }) => {
+  const stNoLabels = labels.length > 0
+    ? { marginLeft: 20, padding: '5px 0' }
+    : { fontSize: 20, marginTop: 25, textAlign: 'center' }
   const content = ready
     ? data.map((dataVal, idx) => (
-      <Wrapper key={uniqueId(`info-${dataVal}-`)}>
+      <Wrapper
+        key={uniqueId(`info-${dataVal}-`)}
+        style={{ borderBottom: labels.length > 0 ? '1px solid #3E97E8' : 'none' }}
+      >
+        {labels.length > 0 && (
         <Label>
           <Font style={{
             fontSize: 16, paddingLeft: 10,
@@ -36,7 +43,8 @@ const InfoContent = ({
             {labels[idx]}
           </Font>
         </Label>
-        <Font component="div" style={{ padding: '5px 0', marginLeft: 20, flexGrow: 1 }}>
+        )}
+        <Font component="div" style={{ flexGrow: 1, ...stNoLabels }}>
           <b>{setFormat ? dataVal : FormatNumberESService.formatNumber(intl, dataVal)}</b>
         </Font>
       </Wrapper>
@@ -47,7 +55,6 @@ const InfoContent = ({
       {content}
     </React.Fragment>
   )
-  // background: '#3E97E8', padding: 6, fontWeight: 'bold', opacity: '0.8',
 }
 
 export default injectIntl(InfoContent);
