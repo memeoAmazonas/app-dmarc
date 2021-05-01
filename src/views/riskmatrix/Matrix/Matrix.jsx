@@ -5,7 +5,7 @@ import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 
-import { asyncActions, actions } from 'rdx/records/actions';
+import { actions, asyncActions, resetRecords } from 'rdx/records/actions';
 import { withUserInfo } from 'common/components/Utilities/AuthProviders';
 import { STATUS } from 'common/constants/constants';
 import Card from 'common/components/Card';
@@ -24,13 +24,19 @@ const MatrixWrapper = styled(Card)`
 const Matrix = ({
   state, customerTable, domain, loadRecords,
   display, customerId, setMatrixFilter, dateFilter,
-  matrixFilter, intl,
+  matrixFilter, intl, resetRecordState,
 }) => {
   const weights = [1, 0, -1];
   const status = [STATUS.pass, STATUS.neutral, STATUS.fail];
   const isFilteringMatrix = useSelector(matrixFilterSelector)
-  const [displayState, setDisplayState] = useState()
-
+  const [displayState, setDisplayState] = useState();
+  const [isInit, setIsInit] = useState(true);
+  useEffect(() => {
+    if (isInit) {
+      resetRecordState();
+      setIsInit(false);
+    }
+  })
   useEffect(() => {
     // We don't want to change the display state of the matrix when we are filtering
     // using the matrix by clicking on the buttons
@@ -38,7 +44,6 @@ const Matrix = ({
       setDisplayState(state)
     }
   }, [state, isFilteringMatrix])
-
   const onCellClick = (attrName?: string, amount?: number) => {
     if (attrName && amount) {
       const position = getMatrixPositionForApi(attrName)
@@ -153,11 +158,9 @@ const Matrix = ({
     ))
   }
 
-
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <h1>hola</h1>
         <MatrixWrapper padding="40px">
           {_.isEmpty(displayState)
             ? (<Skeleton variant="rect" height={200} width="100%" />)
@@ -171,6 +174,8 @@ const Matrix = ({
 const mapDispatchToProps = {
   loadRecords: asyncActions.loadAction,
   setMatrixFilter: actions.setMatrixFilter,
+  resetRecordState: resetRecords,
+
 }
 const mapStateToProps = (state) => ({
   domain: currentDomainSelector(state),

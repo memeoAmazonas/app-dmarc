@@ -24,8 +24,6 @@ const Domains = ({
   const locationRegex = location.search.match(/domain=([^&]*)/);
   const domainNames = Object.keys(domains)
   const selectedDomain = domain || domainNames[0]
-  console.log('domains', domains);
-  console.log('domain', domain);
   const handleDomainChange = (event) => {
     setDomain(event.target.value)
     resetRecordState();
