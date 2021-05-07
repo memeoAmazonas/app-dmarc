@@ -1,26 +1,24 @@
 import React from 'react';
-import _ from 'lodash'
-import { FormattedNumber, FormattedMessage } from 'react-intl'
+import { isEmpty, uniqueId } from 'lodash'
+import { FormattedNumber } from 'react-intl'
 
 import { FixedSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import Font from 'common/components/Font';
+import { FormatNumberESService } from 'common/utils/services/formatNumberES.service';
 import {
   TableVariants, FormattingOptions, Item, RowWrapper,
 } from './index'
 
 
-export const DetailsSubTable = ({ variant, summary }) => {
+export const DetailsSubTable = ({ variant, summary, intl }) => {
   const details = variant === TableVariants.SENDER
     ? summary.recordsSummaryByIp() : summary.recordsByCombinations();
 
-  if (_.isEmpty(summary)) return null
-    
-
-   const Row = ({ index, style }) => {
+  if (isEmpty(summary)) return null
+  const Row = ({ index, style }) => {
     const odd = index % 2 !== 0
     const ipDetail = details[index]
-    
     return (
       <RowWrapper odd={odd} style={style}>
         {
@@ -30,17 +28,17 @@ export const DetailsSubTable = ({ variant, summary }) => {
         }
         {
           Object.values(ipDetail)[0].map((detail) => (
-            <React.Fragment key={_.uniqueId(`${Object.keys(ipDetail)[0]}-ip-details-`)}>
-              
+            <React.Fragment key={uniqueId(`${Object.keys(ipDetail)[0]}-ip-details-`)}>
+
               <Item align="center">
                 <Font variant="h5" component="span">
                   <FormattedNumber
-                    value={detail.dmarcAlignmentPassPerc} 
+                    value={detail.dmarcAlignmentPassPerc}
                     {...FormattingOptions}
                   />
                 </Font>
               </Item>
-              
+
               <Item align="center">
                 <Font variant="h5" component="span">
                   <FormattedNumber
@@ -76,11 +74,11 @@ export const DetailsSubTable = ({ variant, summary }) => {
               {
                 variant === TableVariants.SENDER ? (
                   <Item>{ detail.ips }</Item>
-                  ) : (null)
+                ) : null
               }
-              <Item align="center">{ detail.recordsMessages }</Item>
+              <Item align="center">{ FormatNumberESService.formatNumber(intl, detail.recordsMessages) }</Item>
               {
-                variant === TableVariants.IP ? (
+                variant === TableVariants.IP && (
                   <React.Fragment>
                     <Item>
                       <Font variant="h5" component="span">
@@ -98,7 +96,7 @@ export const DetailsSubTable = ({ variant, summary }) => {
                       </Font>
                     </Item>
                   </React.Fragment>
-                ) : (null)
+                )
               }
             </React.Fragment>
           ))
@@ -124,6 +122,3 @@ export const DetailsSubTable = ({ variant, summary }) => {
     </React.Fragment>
   )
 }
-
-
-

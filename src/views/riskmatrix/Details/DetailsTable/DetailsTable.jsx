@@ -57,7 +57,6 @@ export const DetailsTable = ({ variant, records, intl }) => {
       setSelected(index)
     }
   }
-
   if (_.isEmpty(summaries)) return null
 
   const Row = ({ index, style, force = false }) => {
@@ -151,7 +150,6 @@ export const DetailsTable = ({ variant, records, intl }) => {
       </RowWrapper>
     )
   };
-
   return (
     <React.Fragment>
       <DetailsTableHead variant={variant} extra={selected >= 0} />
@@ -176,6 +174,7 @@ export const DetailsTable = ({ variant, records, intl }) => {
             <Row force index={selected} style={{ height: 70, width: '100%' }} />
             <Container>
               <DetailsSubTable
+                intl={intl}
                 variant={variant}
                 summary={summaries[selected]}
               />

@@ -3,7 +3,26 @@ import _ from 'lodash';
 import { Check } from './check.class';
 import { Record } from './record.class';
 
-
+const orderBy = (transformed) => {
+  const result = [];
+  let i = 0;
+  _.forEach(transformed, (da) => {
+    const key = Object.keys(da);
+    result.push({
+      value: da[key[0]][0].recordsMessages,
+      ip: key[0],
+      position: i,
+    })
+    // eslint-disable-next-line no-plusplus
+    i++;
+  });
+  result.sort((x, y) => (x.value > y.value ? -1 : 1))
+  const response = [];
+  _.forEach(result, (item) => {
+    response.push(transformed[item.position]);
+  });
+  return response;
+}
 // TODO: Maybe consolidate all this checks into the checks object?
 class SpfDkimDetail {
   constructor(total, records) {
@@ -39,7 +58,7 @@ export class SpfDkimSummary {
     _.forEach(grouped, (records, ip) => {
       transformed.push({ [ip]: [new SpfDkimDetail(Record.getRecordsValue(records), records)] });
     })
-    return transformed;
+    return orderBy(transformed);
   }
 
   /*
@@ -69,7 +88,6 @@ export class SpfDkimSummary {
       const ip = records.length > 0 ? records[0].sourceIp : '';
       transformed.push({ [ip]: [new SpfDkimDetail(this.totalMessages, records)] })
     });
-
-    return transformed;
+    return orderBy(transformed);
   }
 }
