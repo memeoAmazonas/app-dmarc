@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { theme } from 'src/theme';
 
 export const TableVariants = Object.freeze({
   IP: 'ip',
@@ -23,3 +24,9 @@ export const Item = styled.div`
   width: 12.5%;
   text-align: center;
 `;
+
+export const EmptyMessage = styled.span(() => (`
+color: ${theme.colors.blue1};
+font-size: 20px;
+padding: 5px;
+`));

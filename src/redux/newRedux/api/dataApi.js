@@ -26,6 +26,12 @@ const dataApi = {
     success: TYPE.GET_HISTOGRAM_SUCCESS,
     error: TYPE.GET_HISTOGRAM_ERROR,
   },
+  getToolsData: {
+    url: URL.TOOLS_URL,
+    method: 'GET',
+    success: TYPE.GET_TOOLS_SUCCESS,
+    error: TYPE.GET_TOOLS_ERROR,
+  },
 }
 
 export default dataApi;

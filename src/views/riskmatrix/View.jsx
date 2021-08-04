@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import { Scroll } from 'common/utils/services/scroll.service'
 import { withUserInfo } from 'common/components/Utilities/AuthProviders';
 import { RangeSelector } from 'common/components/RangeSelector';
+import Tools from 'views/riskmatrix/tool/Tools';
 import ChartRow from './ChartRow';
 import FilterToggle from './FilterToggle';
 import Matrix from './Matrix';
@@ -31,7 +32,7 @@ const MatrixDashboard = ({
   return (
     <Layout>
       <Grid container spacing={2}>
-        <Grid item md={3} xs={12}>
+        <Grid item md={4} xs={12}>
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <FilterToggle
@@ -47,9 +48,12 @@ const MatrixDashboard = ({
             {/*            <Grid item xs={12}>
               <Dates />
             </Grid> */}
+            <Grid item xs={12}>
+              <Tools />
+            </Grid>
           </Grid>
         </Grid>
-        <Grid item md={9} xs={12}>
+        <Grid item md={8} xs={12}>
           <Grid item xs={12}>
             <DomainHeader domain={domain} />
           </Grid>

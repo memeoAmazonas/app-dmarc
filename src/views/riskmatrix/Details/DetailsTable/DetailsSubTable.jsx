@@ -1,21 +1,43 @@
 import React from 'react';
-import { isEmpty, uniqueId } from 'lodash'
-import { FormattedNumber } from 'react-intl'
+import {
+  uniqueId, keys, filter as fil, isEmpty,
+} from 'lodash'
+import { FormattedMessage, FormattedNumber } from 'react-intl'
 
 import { FixedSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import Font from 'common/components/Font';
 import { FormatNumberESService } from 'common/utils/services/formatNumberES.service';
 import {
-  TableVariants, FormattingOptions, Item, RowWrapper,
+  TableVariants, FormattingOptions, Item, RowWrapper, EmptyMessage,
 } from './index'
 
-
-export const DetailsSubTable = ({ variant, summary, intl }) => {
-  const details = variant === TableVariants.SENDER
-    ? summary.recordsSummaryByIp() : summary.recordsByCombinations();
-
-  if (isEmpty(summary)) return null
+export const DetailsSubTable = ({
+  variant, summary, filter, intl,
+}) => {
+  const [details, setDetails] = React.useState();
+  const [act, setAct] = React.useState();
+  React.useEffect(() => {
+    if (!act) {
+      if (variant === TableVariants.SENDER) {
+        setAct(summary.recordsSummaryByIp());
+      } else {
+        setAct(summary.recordsByCombinations());
+      }
+    }
+  });
+  React.useEffect(() => {
+    if (!details && filter && act) setDetails(fil(act, (k) => keys(k)[0].includes(filter)));
+    if (!details && act && !filter) setDetails(act);
+  }, [act]);
+  React.useEffect(() => {
+    if (filter && act) {
+      setDetails(fil(act, (k) => keys(k)[0].includes(filter)));
+    } else if (!filter) {
+      setDetails(act);
+    }
+  }, [filter]);
+  if (!details) return null
   const Row = ({ index, style }) => {
     const odd = index % 2 !== 0
     const ipDetail = details[index]
@@ -23,7 +45,7 @@ export const DetailsSubTable = ({ variant, summary, intl }) => {
       <RowWrapper odd={odd} style={style}>
         {
           <Item align="center">
-            <b>{ Object.keys(ipDetail)[0] }</b>
+            <b>{Object.keys(ipDetail)[0]}</b>
           </Item>
         }
         {
@@ -73,10 +95,10 @@ export const DetailsSubTable = ({ variant, summary, intl }) => {
               </Item>
               {
                 variant === TableVariants.SENDER ? (
-                  <Item>{ detail.ips }</Item>
+                  <Item>{detail.ips}</Item>
                 ) : null
               }
-              <Item align="center">{ FormatNumberESService.formatNumber(intl, detail.recordsMessages) }</Item>
+              <Item align="center">{FormatNumberESService.formatNumber(intl, detail.recordsMessages)}</Item>
               {
                 variant === TableVariants.IP && (
                   <React.Fragment>
@@ -104,18 +126,21 @@ export const DetailsSubTable = ({ variant, summary, intl }) => {
       </RowWrapper>
     )
   }
+  if (isEmpty(details)) return <EmptyMessage><FormattedMessage id="not.have.data" /></EmptyMessage>
 
   return (
     <React.Fragment>
       <AutoSizer>
         {({ height, width }) => (
           <List
+            null={false}
             height={height}
             itemCount={details.length}
             itemSize={70}
             width={width}
           >
             {Row}
+
           </List>
         )}
       </AutoSizer>

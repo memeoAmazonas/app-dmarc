@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Card from 'common/components/Card/Card';
 
-export const StyledCardRadio = styled(Card)`
+export const ContainerCardRadio = styled(Card)`
   padding: 20px;
   max-height: 300px;
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ItemsRadioList, StyledCardRadio } from 'common/components/FlexContainer/CardContainer';
+import { ItemsRadioList, ContainerCardRadio } from 'common/components/FlexContainer/CardContainer';
 import Font from 'common/components/Font';
 import { FormattedMessage } from 'react-intl';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -19,7 +19,7 @@ const RadioButtonList = ({
     />
   ));
   return (
-    <StyledCardRadio>
+    <ContainerCardRadio>
       <React.Fragment>
         <Font variant="h3" component="h2">
           <FormattedMessage id={title} values={values} />
@@ -35,7 +35,7 @@ const RadioButtonList = ({
           </RadioGroup>
         </ItemsRadioList>
       </React.Fragment>
-    </StyledCardRadio>
+    </ContainerCardRadio>
   );
 }
 export default RadioButtonList;

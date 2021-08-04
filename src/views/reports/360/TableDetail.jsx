@@ -29,14 +29,10 @@ const TableDetail = ({ details, intl }) => {
       pais: (code) => countries.getName(code, language) || code.toLowerCase(),
     },
     styles: {
-      pais: {
-      },
-      ip: {
-      },
-      reverseDNS: {
-      },
-      cont: {
-      },
+      pais: {},
+      ip: {},
+      reverseDNS: {},
+      cont: {},
     },
   };
 

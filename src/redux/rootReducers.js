@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 import { USER_LOGOUT } from './user/actions';
-
 import records from './records/reducers';
+
 import dialogs from './dialogs/reducers';
 import summary from './summary/reducers';
 import user from './user/reducers';
 import { forensic, histogram, report360 } from './newRedux/reducer/reports';
+import { tools } from './newRedux/reducer/tools';
 
 export const appReducers = combineReducers({
   records,
@@ -15,6 +16,7 @@ export const appReducers = combineReducers({
   forensic,
   histogram,
   report360,
+  tools,
 });
 
 /*

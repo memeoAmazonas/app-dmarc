@@ -105,5 +105,8 @@
   "7": "7",
   "15": "15",
   "30": "30",
-  "histogram.values": "See by graph"
+  "histogram.values": "See by graph",
+  "search.ip": "Search by IP",
+  "dmarc.tools": "Dmarc Tools"
+
 }

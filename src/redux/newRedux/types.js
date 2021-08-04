@@ -11,3 +11,6 @@ export const DATE_REPORT_FILTER_FORENSIC = 'app/dmarc/GET_DATE_REPORT_FILTER_FOR
 export const GET_HISTOGRAM = 'app/dmarc/GET_HISTOGRAM';
 export const GET_HISTOGRAM_SUCCESS = 'app/dmarc/GET_HISTOGRAM_SUCCESS';
 export const GET_HISTOGRAM_ERROR = 'app/dmarc/GET_HISTOGRAM_ERROR';
+export const GET_TOOLS = 'app/dmarc/GET_TOOLS';
+export const GET_TOOLS_SUCCESS = 'app/dmarc/GET_TOOLS_SUCCESS';
+export const GET_TOOLS_ERROR = 'app/dmarc/GET_TOOLS_ERROR';

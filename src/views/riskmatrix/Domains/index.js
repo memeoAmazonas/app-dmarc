@@ -14,7 +14,7 @@ import { resetRecords } from 'rdx/records/actions';
 import { currentDomainSelector, domainsSelector } from 'rdx/summary/selectors';
 import Font from 'common/components/Font';
 import { DEFAULT_DISPLAY } from 'common/constants/constants'
-import { ItemsRadioList, StyledCardRadio } from 'common/components/FlexContainer/CardContainer';
+import { ItemsRadioList, ContainerCardRadio } from 'common/components/FlexContainer/CardContainer';
 
 
 const Domains = ({
@@ -41,7 +41,7 @@ const Domains = ({
   }, [])
 
   return (
-    <StyledCardRadio>
+    <ContainerCardRadio>
       {
         domainNames.length > 0 ? (
           <React.Fragment>
@@ -75,7 +75,7 @@ const Domains = ({
           </React.Fragment>
         )
       }
-    </StyledCardRadio>
+    </ContainerCardRadio>
   );
 };
 

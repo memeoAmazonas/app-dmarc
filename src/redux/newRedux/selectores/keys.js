@@ -13,3 +13,9 @@ export const KEY_DATE_REPORT_FILTER_FORENSIC = 'forensic.filters';
 
 export const KEY_REPORT_LOADING_HISTOGRAM = 'histogram.reportLoading';
 export const KEY_REPORT_DETAIL_HISTOGRAM = 'histogram.reportDetail';
+
+export const KEY_LOADING_ITEM_MATRIX_SELECTED = 'dialogs._root.entries[1][1]';
+
+export const KEY_GET_TOOLS = 'tools.data';
+export const KEY_LOADING_GET_TOOLS = 'tools.loading';
+export const KEY_GET_DOMAIN = 'summary._root.entries[1][1]';
